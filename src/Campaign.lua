@@ -86,6 +86,7 @@ function Campaign.setup(with_leaders, with_ll_expansion)
 
     local active_players = Global.call("getOrderedPlayers")
     Global.setVar("active_players", active_players)
+
     if (#active_players < 2 or #active_players > 4) then
         return false
     end
@@ -130,7 +131,8 @@ function Campaign.setup(with_leaders, with_ll_expansion)
         Campaign.dealPlayerFates()
     end, 5)
 
-    Turns.enable = true;
+    Turns.type = 2
+    Turns.order = active_player_colors
 
     return true
 end
