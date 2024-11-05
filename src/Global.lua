@@ -117,6 +117,7 @@ local Counters = require("src/Counters")
 local Initiative = require("src/InitiativeMarker")
 local SetupControl = require("src/SetupControl")
 local Supplies = require("src/Supplies")
+local Camera = require("src/Camera")
 
 function assignPlayerToAvailableColor(player, color)
     local color = table.remove(available_colors, 1)
@@ -1303,6 +1304,8 @@ end
 function onLoad()
 
     Initiative.add_menu()
+
+    Camera.setup_menu()
 
     for _, obj in pairs(getObjectsWithTag("City")) do
         Supplies.addMenuToObject(obj)
