@@ -1305,7 +1305,7 @@ function onLoad()
 
     Initiative.add_menu()
 
-    Camera.setup_menu()
+    onCameraLoad()
 
     for _, obj in pairs(getObjectsWithTag("City")) do
         Supplies.addMenuToObject(obj)
@@ -1372,4 +1372,130 @@ function onLoad()
         face_up_discard_action_deck.interactable = false
         face_up_discard_action_deck.locked = false -- set this to false otherwise it breaks
     end
+end
+
+function onCameraLoad()
+       -- Define the UI XML
+       local xml = [[
+
+        <Defaults>
+            <Button color="black" textColor="white" />
+            <Button class="mapView" onClick="onMapClick" />
+            <Button class="diceBoard" onClick="onDiceBoardClick" />
+            <Button class="redBoard" onClick="onRedBoardClick" />
+            <Button class="whiteBoard" onClick="onWhiteBoardClick" />
+            <Button class="yellowBoard" onClick="onYellowBoardClick" />
+            <Button class="tealBoard" onClick="onTealBoardClick" />
+        </Defaults>
+
+        <VerticalLayout
+            id="rollerLayout"
+            height="280"
+            width="80"
+            allowDragging="true"
+            returnToOriginalPositionWhenReleased="false"
+            rectAlignment="UpperLeft"
+            offsetXY="300 -80"
+            >
+            <Button
+                onClick="toggleCameraControls"
+                text="Camera Controls"
+                >
+            </Button>
+            <VerticalLayout
+                id="cameraControls"
+                height="240"
+                width="80"
+                >
+                <Button text="Map View"  id="map" class="mapView"></Button>
+                <Button text="Dice Board"  id="diceBoard" class="diceBoard"></Button>
+                <Button text="Red"  id="redBoard" class="redBoard"></Button>
+                <Button text="White" id="whiteBoard" class="whiteBoard"></Button>
+                <Button text="Yellow" id="yellowBoard" class="yellowBoard"></Button>
+                <Button text="Teal" id="tealBoard" class="tealBoard"></Button>
+            </VerticalLayout>
+        </VerticalLayout>
+    ]]
+
+    -- Set the UI
+    UI.setXml(xml)
+
+    -- Define camera positions
+    cameraPositions = {
+        overallBoard = {
+            position = {x=0, y=5, z=0},
+            pitch = 90,
+            yaw = 180,
+            distance = 30
+        },
+        diceBoard = {
+            position = {x=0, y=1, z=-15},
+            pitch = 60,
+            yaw = 180,
+            distance = 10
+        },
+        redBoard = {
+            position = {x=-15, y=1, z=15},
+            pitch = 45,
+            yaw = 135,
+            distance = 15
+        },
+        whiteBoard = {
+            position = {x=15, y=1, z=15},
+            pitch = 45,
+            yaw = 225,
+            distance = 15
+        },
+        yellowBoard = {
+            position = {x=-15, y=1, z=-15},
+            pitch = 45,
+            yaw = 45,
+            distance = 15
+        },
+        tealBoard = {
+            position = {x=15, y=1, z=-15},
+            pitch = 45,
+            yaw = 315,
+            distance = 15
+        }
+    }
+end
+
+function toggleCameraControls()
+    if cameraControlToggle then
+        --UI.show("cameraControls")
+        UI.setAttribute("cameraControls", "active", true)
+        UI.setAttribute("cameraPanel", "height", 300)
+    else
+        --UI.hide("cameraControls")
+        UI.setAttribute("cameraControls", "active", false)
+        UI.setAttribute("cameraPanel", "height", 40)
+    end
+    --This flips between true/false for show/hide
+    cameraControlToggle = not cameraControlToggle
+end
+
+-- Button click handlers
+function onMapClick(player)
+    broadcastToAll("Switching to Map view!", {r=1, g=1, b=1})
+end
+
+function onDiceBoardClick(player)
+    broadcastToAll("Switching to Dice Board view!", {r=1, g=1, b=1})
+end
+
+function onRedBoardClick(player)
+    broadcastToAll("Switching to Red Player Board!", {r=1, g=0, b=0})
+end
+
+function onWhiteBoardClick(player)
+    broadcastToAll("Switching to White Player Board!", {r=1, g=1, b=1})
+end
+
+function onYellowBoardClick(player)
+    broadcastToAll("Switching to Yellow Player Board!", {r=1, g=1, b=0})
+end
+
+function onTealBoardClick(player)
+    broadcastToAll("Switching to Teal Player Board!", {r=0, g=1, b=1})
 end
