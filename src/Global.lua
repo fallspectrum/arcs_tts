@@ -1308,6 +1308,7 @@ function onLoad()
 
     Initiative.add_menu()
     loadCameraMenu(false)
+    loadTimerMenu(false)
 
     for _, obj in pairs(getObjectsWithTag("City")) do
         Supplies.addMenuToObject(obj)
@@ -1521,4 +1522,93 @@ function onTealBoardClick(player, value, id)
         yaw = 0,
         distance = 11
     })
+end
+
+function loadTimerMenu(menuOpen)
+    -- Generate player timer buttons XML based on active players
+    local playerTimersXml = ""
+    
+    local buttonColors = {
+        Red = "#FF0000",
+        White = "#FFFFFF",
+        Yellow = "#FFFF00",
+        Teal = "#00FFFF"
+    }
+
+    for _, player in ipairs(active_players) do
+        playerTimersXml = playerTimersXml .. string.format(
+            [[<VerticalLayout spacing="5">
+                <Text text="%s" color="%s"/>
+                <Text id="%sTimer" text="00:00" color="%s"/>
+                <HorizontalLayout spacing="5">
+                    <Button text="Start" id="start%sTimer" textColor="%s" onClick="onStartTimer"/>
+                    <Button text="Stop" id="stop%sTimer" textColor="%s" onClick="onStopTimer"/>
+                </HorizontalLayout>
+            </VerticalLayout>]],
+            player.color,
+            buttonColors[player.color],
+            player.color:lower(),
+            buttonColors[player.color],
+            player.color,
+            buttonColors[player.color],
+            player.color,
+            buttonColors[player.color]
+        )
+    end
+
+    local xml = string.format([[
+        <VerticalLayout
+            id="timerLayout"
+            height="240"
+            width="100"
+            allowDragging="true"
+            returnToOriginalPositionWhenReleased="false"
+            rectAlignment="UpperLeft"
+            anchorMin="0 1"
+            anchorMax="0 1"
+            offsetXY="5 -5"
+            spacing="10"
+            childForceExpandHeight="false"
+            childForceExpandWidth="true"
+            >
+            <Button
+                onClick="toggleTimerControls"
+                text="Player&#xA;Timers"
+                textColor="white"
+                color="Grey"
+                >
+            </Button>
+            <VerticalLayout
+                id="timerControls"
+                height="240"
+                width="100"
+                active="%s"
+                spacing="10"
+                >
+                %s
+            </VerticalLayout>
+        </VerticalLayout>
+    ]], menuOpen == true and "true" or "false", playerTimersXml)
+
+    -- Append to existing UI
+    local currentXml = UI.getXml()
+    UI.setXml(currentXml .. xml)
+end
+
+function toggleTimerControls(player, value, id)
+    local startingMenuState = UI.getAttribute("timerControls", "active") == "true"
+    local newMenuState = not startingMenuState
+    UI.setAttribute("timerControls", "active", tostring(newMenuState))
+    loadTimerMenu(newMenuState)
+end
+
+-- Placeholder functions for timer controls
+function onStartTimer(player, value, id)
+    -- Timer logic will be added later
+    print("Start timer clicked for " .. id)
+end
+
+function onStopTimer(player, value, id)
+    -- Timer logic will be added later
+    print("Stop timer clicked for " .. id)
 end
