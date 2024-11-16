@@ -1304,11 +1304,136 @@ function set_game_in_progress(params)
     -- end
 end
 
+-- Add these variables near the top with other globals
+player_timers = {}
+timer_running = false
+timer_start_time = 0
+active_player_color = nil -- Track whose turn it is
+
+-- variable to store the timer function reference
+local timer_id = nil
+
+function startTimer()
+    local active_color = Turns.turn_color
+    
+    if active_color and active_color ~= "" then
+        if not timer_running then
+            -- Store all current values
+            local currentValues = {}
+            for _, player in ipairs(active_players) do
+                currentValues[player.color] = player_timers[player.color] or 0
+            end
+            
+            -- Set state variables
+            active_player_color = active_color
+            timer_running = true
+            timer_start_time = os.time()
+            
+            -- Immediately restore all values
+            for _, player in ipairs(active_players) do
+                player_timers[player.color] = currentValues[player.color]
+                UI.setValue(player.color:lower() .. "Timer", formatTime(player_timers[player.color]))
+            end
+            
+            -- Start the update loop
+            if timer_id then
+                Wait.stop(timer_id)
+            end
+            timer_id = Wait.time(function() updateTimers() end, 1, -1)
+            
+            -- Update UI last
+            loadCameraMenu(true)
+        end
+    else
+        broadcastToAll("No active turn - please use the turn system to track turns", {1, 0, 0})
+    end
+end
+
+-- Helper function to format time consistently
+function formatTime(seconds)
+    local minutes = math.floor(seconds / 60)
+    seconds = seconds % 60
+    return string.format("%02d:%02d", minutes, seconds)
+end
+
+function pauseTimer()
+    if timer_running then
+        timer_running = false
+        
+        -- Stop the timer update loop
+        if timer_id then
+            Wait.stop(timer_id)
+            timer_id = nil
+        end
+        
+        -- Update UI
+        for _, player in ipairs(active_players) do
+            updateTimerDisplay(player.color)
+        end
+        loadCameraMenu(true)
+    end
+end
+
+function resetTimer()
+    timer_running = false
+    timer_start_time = 0
+    active_player_color = nil
+    for _, color in ipairs({"Red", "White", "Yellow", "Teal"}) do
+        player_timers[color] = 0
+        updateTimerDisplay(color)
+    end
+    if timer_id then
+        Wait.stop(timer_id)
+        timer_id = nil
+    end
+end
+
+function updateTimers()
+    if timer_running and active_player_color then
+        if not player_timers[active_player_color] then
+            player_timers[active_player_color] = 0
+        end
+        player_timers[active_player_color] = player_timers[active_player_color] + 1
+        
+        for _, player in ipairs(active_players) do
+            updateTimerDisplay(player.color)
+        end
+    else
+        print("Timer not running or no active player")
+    end
+end
+
+function updateTimerDisplay(color)
+    local seconds = player_timers[color] or 0
+    local minutes = math.floor(seconds / 60)
+    seconds = seconds % 60
+    local display = string.format("%02d:%02d", minutes, seconds)
+    UI.setValue(color:lower() .. "Timer", display)
+end
+
+function setActivePlayer(color)
+    active_player_color = color
+    timer_start_time = os.time()
+    
+    if not player_timers[color] then
+        player_timers[color] = 0
+    end
+    
+    for _, player in ipairs(active_players) do
+        local timerId = player.color:lower() .. "Timer"
+        if player.color == color then
+            UI.setAttribute(timerId, "textColor", "#00FF00") -- Green for active
+        else
+            UI.setAttribute(timerId, "textColor", "#FFFFFF") -- White for inactive
+        end
+    end
+end
+
+-- Add context menu to player boards to set active player
 function onLoad()
 
     Initiative.add_menu()
     loadCameraMenu(false)
-    loadTimerMenu(false)
 
     for _, obj in pairs(getObjectsWithTag("City")) do
         Supplies.addMenuToObject(obj)
@@ -1375,34 +1500,52 @@ function onLoad()
         face_up_discard_action_deck.interactable = false
         face_up_discard_action_deck.locked = false -- set this to false otherwise it breaks
     end
+
+    -- Initialize timers for all players
+    resetTimer()
+    
+    -- Add context menu to player boards
+    for _, player in ipairs(active_players) do
+        local board = getObjectFromGUID(player_pieces_GUIDs[player.color].player_board)
+        if board then
+            -- Create a function in Global that will be called by the context menu
+            local func_name = "setActivePlayer" .. player.color
+            Global[func_name] = function() onSetActivePlayerClick(player.color) end
+            board.addContextMenuItem("Set Active Player", func_name)
+        end
+    end
+
+    -- Subscribe to turn changes
+    Turns.enable = true
+    Turns.pass_turns = true
 end
 
 function loadCameraMenu(menuOpen)
-    -- Generate player buttons XML based on active players
-    local playerButtonsXml = ""
-    -- Always add Map and Dice buttons
-    playerButtonsXml = playerButtonsXml .. 
-        [[<Button text="Map" id="mapCamera" textColor="Grey" onClick="onMapClick"></Button>
-          <Button text="Court" id="courtCamera" textColor="Grey" onClick="onCourtClick"></Button>
-          <Button text="Action" id="actionCardsCamera" textColor="Grey" onClick="onActionCardsClick"></Button>
-          <Button text="Dice" id="diceCamera" textColor="Grey" onClick="onDiceBoardClick"></Button>]]
+    -- Generate camera and player buttons XML
+    local controlsXml = string.format([[
+        <VerticalLayout spacing="10">
+            <!-- Camera Controls in pairs -->
+            <HorizontalLayout spacing="5">
+                <Button text="Action" id="actionCardsCamera" textColor="Grey" onClick="onActionCardsClick" width="85"/>
+                <Button text="Court" id="courtCamera" textColor="Grey" onClick="onCourtClick" width="85"/>
+            </HorizontalLayout>
+            <HorizontalLayout spacing="5">
+                <Button text="Dice" id="diceCamera" textColor="Grey" onClick="onDiceBoardClick" width="85"/>
+                <Button text="Map" id="mapCamera" textColor="Grey" onClick="onMapClick" width="85"/>
+            </HorizontalLayout>
 
-    local buttonColors = {
-        Red = "#FF0000",
-        White = "#FFFFFF",
-        Yellow = "#FFFF00",
-        Teal = "#00FFFF"
-    }
+            <!-- Player Timer Displays -->
+            %s
 
-    for _, player in ipairs(active_players) do
-        playerButtonsXml = playerButtonsXml .. string.format(
-            [[<Button text="%s" id="%sCamera" textColor="%s" onClick="on%sBoardClick"></Button>]],
-            player.color,
-            player.color:lower(),
-            buttonColors[player.color],
-            player.color
-        )
-    end
+            <!-- Timer Controls at bottom -->
+            <HorizontalLayout spacing="5">
+                <Button text="%s" id="playPauseButton" textColor="White" onClick="onPlayPauseTimer" width="30" flexibleWidth="0"/>
+                <Button text="Reset" id="resetTimer" textColor="White" onClick="onResetTimer" width="55" fontStyle="Normal"/>
+            </HorizontalLayout>
+        </VerticalLayout>
+    ]], generatePlayerTimerDisplays(), 
+        timer_running and "||" or "▶"  -- Just change the symbol, keep color White
+    )
 
     local xml = string.format([[
         <Defaults>
@@ -1412,8 +1555,8 @@ function loadCameraMenu(menuOpen)
 
         <VerticalLayout
             id="cameraLayout"
-            height="240"
-            width="60"
+            height="300"
+            width="180"
             allowDragging="true"
             returnToOriginalPositionWhenReleased="false"
             rectAlignment="UpperRight"
@@ -1426,23 +1569,66 @@ function loadCameraMenu(menuOpen)
             >
             <Button
                 onClick="toggleCameraControls"
-                text="Camera&#xA;Controls"
+                text="Camera Controls"
                 textColor="white"
                 color="Grey"
                 >
             </Button>
             <VerticalLayout
                 id="cameraControls"
-                height="240"
-                width="60"
+                height="300"
+                width="180"
                 active="%s"
                 >
                 %s
             </VerticalLayout>
         </VerticalLayout>
-    ]], menuOpen == true and "true" or "false", playerButtonsXml)
+    ]], menuOpen == true and "true" or "false", controlsXml)
 
     UI.setXml(xml)
+end
+
+-- Helper function to generate player timer displays
+function generatePlayerTimerDisplays()
+    local playerTimersXml = ""
+    local buttonColors = {
+        Red = "#FF0000",
+        White = "#FFFFFF",
+        Yellow = "#FFFF00",
+        Teal = "#00FFFF"
+    }
+
+    for _, player in ipairs(active_players) do
+        playerTimersXml = playerTimersXml .. string.format(
+            [[<HorizontalLayout spacing="5">
+                <Text id="%sTimer" text="00:00" color="%s" width="85"/>
+                <Button text="%s" id="%sCamera" textColor="%s" onClick="on%sBoardClick" width="85"/>
+            </HorizontalLayout>]],
+            player.color:lower(),
+            buttonColors[player.color],
+            player.color,
+            player.color:lower(),
+            buttonColors[player.color],
+            player.color
+        )
+    end
+    
+    return playerTimersXml
+end
+
+-- Timer control functions
+function onPlayPauseTimer(player, value, id)
+    if timer_running then
+        pauseTimer()
+    else
+        startTimer()
+    end
+    -- Update button state
+    loadCameraMenu(true)
+end
+
+function onResetTimer(player, value, id)
+    resetTimer()
 end
 
 function toggleCameraControls(player, value, id)
@@ -1524,91 +1710,92 @@ function onTealBoardClick(player, value, id)
     })
 end
 
-function loadTimerMenu(menuOpen)
-    -- Generate player timer buttons XML based on active players
-    local playerTimersXml = ""
-    
-    local buttonColors = {
-        Red = "#FF0000",
-        White = "#FFFFFF",
-        Yellow = "#FFFF00",
-        Teal = "#00FFFF"
-    }
+-- Add this function to handle the context menu click
+function onSetActivePlayerClick(player_color)
+    setActivePlayer(player_color)
+end
 
-    for _, player in ipairs(active_players) do
-        playerTimersXml = playerTimersXml .. string.format(
-            [[<VerticalLayout spacing="5">
-                <Text text="%s" color="%s"/>
-                <Text id="%sTimer" text="00:00" color="%s"/>
-                <HorizontalLayout spacing="5">
-                    <Button text="Start" id="start%sTimer" textColor="%s" onClick="onStartTimer"/>
-                    <Button text="Stop" id="stop%sTimer" textColor="%s" onClick="onStopTimer"/>
-                </HorizontalLayout>
-            </VerticalLayout>]],
-            player.color,
-            buttonColors[player.color],
-            player.color:lower(),
-            buttonColors[player.color],
-            player.color,
-            buttonColors[player.color],
-            player.color,
-            buttonColors[player.color]
-        )
+-- Add turn change handler
+function onTurnBegin()
+    local active_color = Turns.turn_color
+    if active_color and active_color ~= "" then
+        -- Start timer for the new active player
+        active_player_color = active_color
+        
+        -- If timer was already running, ensure it continues for new player
+        if timer_running then
+            -- Stop previous player's timer first
+            pauseTimer()
+            -- Start new player's timer
+            startTimer()
+        end
+        
+        -- Update UI highlighting for active player
+        for _, player in ipairs(active_players) do
+            local timerId = player.color:lower() .. "Timer"
+            if player.color == active_color then
+                UI.setAttribute(timerId, "textColor", "#00FF00") -- Green for active
+            else
+                UI.setAttribute(timerId, "textColor", "#FFFFFF") -- White for inactive
+            end
+        end
     end
-
-    local xml = string.format([[
-        <VerticalLayout
-            id="timerLayout"
-            height="240"
-            width="100"
-            allowDragging="true"
-            returnToOriginalPositionWhenReleased="false"
-            rectAlignment="UpperLeft"
-            anchorMin="0 1"
-            anchorMax="0 1"
-            offsetXY="5 -5"
-            spacing="10"
-            childForceExpandHeight="false"
-            childForceExpandWidth="true"
-            >
-            <Button
-                onClick="toggleTimerControls"
-                text="Player&#xA;Timers"
-                textColor="white"
-                color="Grey"
-                >
-            </Button>
-            <VerticalLayout
-                id="timerControls"
-                height="240"
-                width="100"
-                active="%s"
-                spacing="10"
-                >
-                %s
-            </VerticalLayout>
-        </VerticalLayout>
-    ]], menuOpen == true and "true" or "false", playerTimersXml)
-
-    -- Append to existing UI
-    local currentXml = UI.getXml()
-    UI.setXml(currentXml .. xml)
 end
 
-function toggleTimerControls(player, value, id)
-    local startingMenuState = UI.getAttribute("timerControls", "active") == "true"
-    local newMenuState = not startingMenuState
-    UI.setAttribute("timerControls", "active", tostring(newMenuState))
-    loadTimerMenu(newMenuState)
+function onTurnChange(player_color)
+    if player_color and player_color ~= "" then
+        -- If timer is running, handle the transition
+        if timer_running then
+            -- Pause current player's timer
+            pauseTimer()
+            -- Set up new active player
+            active_player_color = player_color
+            -- Start timer for new player
+            startTimer()
+        else
+            -- Just update the active player without starting timer
+            active_player_color = player_color
+        end
+        
+        -- Update UI highlighting
+        for _, player in ipairs(active_players) do
+            local timerId = player.color:lower() .. "Timer"
+            if player.color == player_color then
+                UI.setAttribute(timerId, "textColor", "#00FF00") -- Green for active
+            else
+                UI.setAttribute(timerId, "textColor", "#FFFFFF") -- White for inactive
+            end
+        end
+    end
 end
 
--- Placeholder functions for timer controls
-function onStartTimer(player, value, id)
-    -- Timer logic will be added later
-    print("Start timer clicked for " .. id)
-end
-
-function onStopTimer(player, value, id)
-    -- Timer logic will be added later
-    print("Stop timer clicked for " .. id)
+function onPlayerTurn(player_color_previous, player_color_next)
+    -- This fires when turns actually change
+    if timer_running then
+        -- Save time for previous player
+        if player_color_previous and player_color_previous ~= "" then
+            active_player_color = player_color_previous
+            pauseTimer()
+        end
+        
+        -- Start timing for next player
+        if player_color_next and player_color_next ~= "" then
+            active_player_color = player_color_next
+            startTimer()
+        end
+    end
+    
+    -- Update UI highlighting regardless of timer state
+    for _, player in ipairs(active_players) do
+        local timerId = player.color:lower() .. "Timer"
+        if player.color == player_color_next then
+            UI.setAttribute(timerId, "textColor", "#00FF00") -- Green for active
+        else
+            UI.setAttribute(timerId, "textColor", "#FFFFFF") -- White for inactive
+        end
+    end
+    
+    -- Debug output
+    print("Turn changed from " .. tostring(player_color_previous) .. " to " .. tostring(player_color_next))
+    print("Timer running: " .. tostring(timer_running))
 end
