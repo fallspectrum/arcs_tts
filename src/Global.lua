@@ -1312,38 +1312,22 @@ timer_start_time = 0
 -- variable to store the timer function reference
 local timer_id = nil
 
-function startTimer()
-    local active_color = Turns.turn_color
-    
-    if active_color and active_color ~= "" then
-        if not timer_running then
-            -- Store all current values
-            local currentValues = {}
-            for _, player in ipairs(active_players) do
-                currentValues[player.color] = player_timers[player.color] or 0
-            end
-            
-            -- Set state variables
-            timer_running = true
-            timer_start_time = os.time()
-            
-            -- Immediately restore all values
-            for _, player in ipairs(active_players) do
-                player_timers[player.color] = currentValues[player.color]
-                UI.setValue(player.color:lower() .. "Timer", formatTime(player_timers[player.color]))
-            end
-            
-            -- Start the update loop
-            if timer_id then
-                Wait.stop(timer_id)
-            end
-            timer_id = Wait.time(function() updateTimers() end, 1, -1)
-            
-            loadCameraMenu()
-        end
-    else
-        broadcastToAll("No active turn - please use the turn system to track turns", {1, 0, 0})
+function startTimer()    
+    if timer_running then return end
+
+    if not Turns.turn_color or Turns.turn_color == "" then
+        broadcastToAll("No active turn - please use the turn system", {1, 0, 0})
+        return
     end
+
+    if timer_id then
+        Wait.stop(timer_id)
+    end
+    
+    timer_running = true
+    timer_start_time = os.time()
+    timer_id = Wait.time(function() updateTimers() end, 1, -1)
+    loadCameraMenu()
 end
 
 -- Helper function to format time consistently
