@@ -1341,7 +1341,6 @@ function startTimer()
             end
             timer_id = Wait.time(function() updateTimers() end, 1, -1)
             
-            -- Update UI last
             loadCameraMenu()
         end
     else
@@ -1527,6 +1526,7 @@ function onLoad()
     -- Subscribe to turn changes
     Turns.enable = true
     Turns.pass_turns = true
+    loadCameraMenu(false)
 end
 
 function loadCameraMenu(menuOpen)
@@ -1655,10 +1655,8 @@ function onResetTimer(player, value, id)
 end
 
 function toggleCameraControls(player, value, id)
-    local startingMenuState = UI.getAttribute("cameraControls", "active") == "true"
-    local newMenuState = not startingMenuState
-    UI.setAttribute("cameraControls", "active", tostring(newMenuState))
-    loadCameraMenu(newMenuState)
+    local isOpen = UI.getAttribute("cameraControls", "active") == "true"
+    loadCameraMenu(not isOpen)
 end
 
 function onMapClick(player, value, id)
