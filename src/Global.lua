@@ -1608,12 +1608,16 @@ function generatePlayerTimerDisplays()
 
     for _, player in ipairs(active_players) do
         local isActive = player.color == Turns.turn_color
+        local currentTime = player_timers[player.color] or 0
+        local timeDisplay = formatTime(currentTime)
+        
         playerTimersXml = playerTimersXml .. string.format(
             [[<HorizontalLayout spacing="5">
-                <Text id="%sTimer" text="00:00" color="%s" fontStyle="%s" width="85"/>
+                <Text id="%sTimer" text="%s" color="%s" fontStyle="%s" width="85"/>
                 <Button text="%s" id="%sCamera" textColor="%s" onClick="on%sBoardClick" width="85"/>
             </HorizontalLayout>]],
             player.color:lower(),
+            timeDisplay,          -- Use current time instead of "00:00"
             buttonColors[player.color],
             isActive and "Bold" or "Normal",
             player.color,
