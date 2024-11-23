@@ -1308,7 +1308,6 @@ end
 player_timers = {}
 timer_running = false
 timer_start_time = 0
-active_player_color = nil -- Track whose turn it is
 
 -- variable to store the timer function reference
 local timer_id = nil
@@ -1325,7 +1324,6 @@ function startTimer()
             end
             
             -- Set state variables
-            active_player_color = active_color
             timer_running = true
             timer_start_time = os.time()
             
@@ -1376,7 +1374,6 @@ end
 function resetTimer()
     timer_running = false
     timer_start_time = 0
-    active_player_color = nil
     for _, color in ipairs({"Red", "White", "Yellow", "Teal"}) do
         player_timers[color] = 0
         updateTimerDisplay(color)
@@ -1390,12 +1387,12 @@ function resetTimer()
 end
 
 function updateTimers()
-    if timer_running and active_player_color then
+    if timer_running and Turns.turn_color then
         -- Update the current player's total time
-        if not player_timers[active_player_color] then
-            player_timers[active_player_color] = 0
+        if not player_timers[Turns.turn_color] then
+            player_timers[Turns.turn_color] = 0
         end
-        player_timers[active_player_color] = player_timers[active_player_color] + 1
+        player_timers[Turns.turn_color] = player_timers[Turns.turn_color] + 1
         
         -- Update display for all players, including bold state
         for _, player in ipairs(active_players) do
@@ -1421,21 +1418,7 @@ function updateTimerDisplay(color)
 end
 
 function setActivePlayer(color)
-    active_player_color = color
-    timer_start_time = os.time()
-    
-    if not player_timers[color] then
-        player_timers[color] = 0
-    end
-    
-    for _, player in ipairs(active_players) do
-        local timerId = player.color:lower() .. "Timer"
-        if player.color == color then
-            UI.setAttribute(timerId, "fontStyle", "Bold")
-        else
-            UI.setAttribute(timerId, "fontStyle", "Normal")
-        end
-    end
+    Turns.turn_color = color
 end
 
 -- Add context menu to player boards to set active player
@@ -1738,29 +1721,15 @@ end
 
 -- Add turn change handler
 function onTurnBegin()
-    local active_color = Turns.turn_color
-    if active_color and active_color ~= "" then
-        -- Start timer for the new active player
-        active_player_color = active_color
-        
-        -- If timer was already running, ensure it continues for new player
-        if timer_running then
-            -- Stop previous player's timer first
-            pauseTimer()
-            -- Start new player's timer
-            startTimer()
-        end
-        
-        -- Update UI highlighting for active player
-        for _, player in ipairs(active_players) do
-            local timerId = player.color:lower() .. "Timer"
-            if player.color == active_color then
-                UI.setAttribute(timerId, "fontStyle", "Bold")
-            else
-                UI.setAttribute(timerId, "fontStyle", "Normal")
-            end
-        end
+    -- If timer was running, ensure it continues for new player
+    if timer_running then
+        -- Restart timer for new active player
+        pauseTimer()
+        startTimer()
     end
+    
+    -- Update UI for all players
+    loadCameraMenu(true)
 end
 
 function onTurnChange(player_color)
@@ -1770,12 +1739,12 @@ function onTurnChange(player_color)
             -- Pause current player's timer
             pauseTimer()
             -- Set up new active player
-            active_player_color = player_color
+            Turns.turn_color = player_color
             -- Start timer for new player
             startTimer()
         else
             -- Just update the active player without starting timer
-            active_player_color = player_color
+            Turns.turn_color = player_color
         end
         
         -- Update UI highlighting to use bold text for active player
@@ -1793,12 +1762,12 @@ end
 function onPlayerTurn(player_color_previous, player_color_next)
     if timer_running then
         if player_color_previous and player_color_previous ~= "" then
-            active_player_color = player_color_previous
+            Turns.turn_color = player_color_previous
             pauseTimer()
         end
         
         if player_color_next and player_color_next ~= "" then
-            active_player_color = player_color_next
+            Turns.turn_color = player_color_next
             startTimer()
         end
     end
