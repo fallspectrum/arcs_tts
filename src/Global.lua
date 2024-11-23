@@ -1342,7 +1342,7 @@ function startTimer()
             timer_id = Wait.time(function() updateTimers() end, 1, -1)
             
             -- Update UI last
-            loadCameraMenu(true)
+            loadCameraMenu()
         end
     else
         broadcastToAll("No active turn - please use the turn system to track turns", {1, 0, 0})
@@ -1387,7 +1387,6 @@ function resetTimer()
         timer_id = nil
     end
     
-    -- Reload the camera menu to update the play/pause button state
     loadCameraMenu(true)
 end
 
@@ -1444,7 +1443,6 @@ end
 function onLoad()
 
     Initiative.add_menu()
-    loadCameraMenu(false)
 
     for _, obj in pairs(getObjectsWithTag("City")) do
         Supplies.addMenuToObject(obj)
@@ -1514,7 +1512,7 @@ function onLoad()
 
     -- Initialize timers for all players
     resetTimer()
-    
+
     -- Add context menu to player boards
     for _, player in ipairs(active_players) do
         local board = getObjectFromGUID(player_pieces_GUIDs[player.color].player_board)
@@ -1532,6 +1530,11 @@ function onLoad()
 end
 
 function loadCameraMenu(menuOpen)
+    -- if menuOpen is nil, leave the cameraControls active state alone
+    if menuOpen == nil then
+        menuOpen = UI.getAttribute("cameraControls", "active")
+    end
+
     -- Generate camera and player buttons XML
     local controlsXml = string.format([[
         <VerticalLayout spacing="10">
@@ -1583,6 +1586,9 @@ function loadCameraMenu(menuOpen)
                 text="Camera Controls"
                 textColor="white"
                 color="Grey"
+                tooltip="Toggle camera controls / timer"
+                tooltipBackgroundColor="Grey"
+                tooltipTextColor="Black"
                 >
             </Button>
             <VerticalLayout
@@ -1594,7 +1600,7 @@ function loadCameraMenu(menuOpen)
                 %s
             </VerticalLayout>
         </VerticalLayout>
-    ]], menuOpen == true and "true" or "false", controlsXml)
+    ]], tostring(menuOpen), controlsXml)
 
     UI.setXml(xml)
 end
