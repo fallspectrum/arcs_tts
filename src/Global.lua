@@ -1386,6 +1386,9 @@ function resetTimer()
         Wait.stop(timer_id)
         timer_id = nil
     end
+    
+    -- Reload the camera menu to update the play/pause button state
+    loadCameraMenu(true)
 end
 
 function updateTimers()
