@@ -1390,16 +1390,24 @@ end
 
 function updateTimers()
     if timer_running and active_player_color then
+        -- Update the current player's total time
         if not player_timers[active_player_color] then
             player_timers[active_player_color] = 0
         end
         player_timers[active_player_color] = player_timers[active_player_color] + 1
         
+        -- Update display for all players, including bold state
         for _, player in ipairs(active_players) do
+            local timerId = player.color:lower() .. "Timer"
+            -- Update time display
             updateTimerDisplay(player.color)
+            -- Update bold state
+            if player.color == Turns.turn_color then
+                UI.setAttribute(timerId, "fontStyle", "Bold")
+            else
+                UI.setAttribute(timerId, "fontStyle", "Normal")
+            end
         end
-    else
-        print("Timer not running or no active player")
     end
 end
 
@@ -1422,9 +1430,9 @@ function setActivePlayer(color)
     for _, player in ipairs(active_players) do
         local timerId = player.color:lower() .. "Timer"
         if player.color == color then
-            UI.setAttribute(timerId, "textColor", "#00FF00") -- Green for active
+            UI.setAttribute(timerId, "fontStyle", "Bold")
         else
-            UI.setAttribute(timerId, "textColor", "#FFFFFF") -- White for inactive
+            UI.setAttribute(timerId, "fontStyle", "Normal")
         end
     end
 end
@@ -1599,13 +1607,15 @@ function generatePlayerTimerDisplays()
     }
 
     for _, player in ipairs(active_players) do
+        local isActive = player.color == Turns.turn_color
         playerTimersXml = playerTimersXml .. string.format(
             [[<HorizontalLayout spacing="5">
-                <Text id="%sTimer" text="00:00" color="%s" width="85"/>
+                <Text id="%sTimer" text="00:00" color="%s" fontStyle="%s" width="85"/>
                 <Button text="%s" id="%sCamera" textColor="%s" onClick="on%sBoardClick" width="85"/>
             </HorizontalLayout>]],
             player.color:lower(),
             buttonColors[player.color],
+            isActive and "Bold" or "Normal",
             player.color,
             player.color:lower(),
             buttonColors[player.color],
@@ -1734,9 +1744,9 @@ function onTurnBegin()
         for _, player in ipairs(active_players) do
             local timerId = player.color:lower() .. "Timer"
             if player.color == active_color then
-                UI.setAttribute(timerId, "textColor", "#00FF00") -- Green for active
+                UI.setAttribute(timerId, "fontStyle", "Bold")
             else
-                UI.setAttribute(timerId, "textColor", "#FFFFFF") -- White for inactive
+                UI.setAttribute(timerId, "fontStyle", "Normal")
             end
         end
     end
@@ -1757,45 +1767,38 @@ function onTurnChange(player_color)
             active_player_color = player_color
         end
         
-        -- Update UI highlighting
+        -- Update UI highlighting to use bold text for active player
         for _, player in ipairs(active_players) do
             local timerId = player.color:lower() .. "Timer"
             if player.color == player_color then
-                UI.setAttribute(timerId, "textColor", "#00FF00") -- Green for active
+                UI.setAttribute(timerId, "fontStyle", "Bold")
             else
-                UI.setAttribute(timerId, "textColor", "#FFFFFF") -- White for inactive
+                UI.setAttribute(timerId, "fontStyle", "Normal")
             end
         end
     end
 end
 
 function onPlayerTurn(player_color_previous, player_color_next)
-    -- This fires when turns actually change
     if timer_running then
-        -- Save time for previous player
         if player_color_previous and player_color_previous ~= "" then
             active_player_color = player_color_previous
             pauseTimer()
         end
         
-        -- Start timing for next player
         if player_color_next and player_color_next ~= "" then
             active_player_color = player_color_next
             startTimer()
         end
     end
     
-    -- Update UI highlighting regardless of timer state
+    -- Update UI highlighting to use bold text for active player
     for _, player in ipairs(active_players) do
         local timerId = player.color:lower() .. "Timer"
         if player.color == player_color_next then
-            UI.setAttribute(timerId, "textColor", "#00FF00") -- Green for active
+            UI.setAttribute(timerId, "fontStyle", "Bold")
         else
-            UI.setAttribute(timerId, "textColor", "#FFFFFF") -- White for inactive
+            UI.setAttribute(timerId, "fontStyle", "Normal")
         end
     end
-    
-    -- Debug output
-    print("Turn changed from " .. tostring(player_color_previous) .. " to " .. tostring(player_color_next))
-    print("Timer running: " .. tostring(timer_running))
 end
