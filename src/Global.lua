@@ -1563,14 +1563,14 @@ function loadCameraMenu(menuOpen)
 
         <VerticalLayout
             id="cameraLayout"
-            height="300"
-            width="180"
+            height="250"
+            width="160"
             allowDragging="true"
             returnToOriginalPositionWhenReleased="false"
             rectAlignment="UpperRight"
             anchorMin="1 1"
             anchorMax="1 1"
-            offsetXY="-200 -5"
+            offsetXY="-5 -150"
             spacing="10"
             childForceExpandHeight="false"
             childForceExpandWidth="true"
