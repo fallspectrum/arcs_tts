@@ -1549,9 +1549,9 @@ function loadCameraMenu(menuOpen)
             %s
 
             <!-- Timer Controls at bottom -->
-            <HorizontalLayout spacing="5">
+            <HorizontalLayout spacing="5" padding="0 60 0 0">
                 <Button text="%s" id="playPauseButton" textColor="White" onClick="onPlayPauseTimer" width="30" flexibleWidth="0"/>
-                <Button text="Reset" id="resetTimer" textColor="White" onClick="onResetTimer" width="55" fontStyle="Normal"/>
+                <Button text="Reset" id="resetTimer" textColor="White" onClick="onResetTimer" width="55" fontStyle="Normal" tooltip="Reset all timers back to 0"/>
             </HorizontalLayout>
         </VerticalLayout>
     ]], generatePlayerTimerDisplays(), 
