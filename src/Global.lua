@@ -1338,21 +1338,16 @@ function formatTime(seconds)
 end
 
 function pauseTimer()
-    if timer_running then
-        timer_running = false
-        
-        -- Stop the timer update loop
-        if timer_id then
-            Wait.stop(timer_id)
-            timer_id = nil
-        end
-        
-        -- Update UI
-        for _, player in ipairs(active_players) do
-            updateTimerDisplay(player.color)
-        end
-        loadCameraMenu(true)
+    if not timer_running then return end
+
+    timer_running = false
+
+    if timer_id then
+        Wait.stop(timer_id)
+        timer_id = nil
     end
+    
+    loadCameraMenu(true)
 end
 
 function resetTimer()
@@ -1386,8 +1381,10 @@ function updateTimers()
             -- Update bold state
             if player.color == Turns.turn_color then
                 UI.setAttribute(timerId, "fontStyle", "Bold")
+                UI.setAttribute(timerId, "fontSize", "15")
             else
                 UI.setAttribute(timerId, "fontStyle", "Normal")
+                UI.setAttribute(timerId, "fontSize", "14")
             end
         end
     end
@@ -1399,10 +1396,6 @@ function updateTimerDisplay(color)
     seconds = seconds % 60
     local display = string.format("%02d:%02d", minutes, seconds)
     UI.setValue(color:lower() .. "Timer", display)
-end
-
-function setActivePlayer(color)
-    Turns.turn_color = color
 end
 
 -- Add context menu to player boards to set active player
@@ -1479,18 +1472,6 @@ function onLoad()
     -- Initialize timers for all players
     resetTimer()
 
-    -- Add context menu to player boards
-    for _, player in ipairs(active_players) do
-        local board = getObjectFromGUID(player_pieces_GUIDs[player.color].player_board)
-        if board then
-            -- Create a function in Global that will be called by the context menu
-            local func_name = "setActivePlayer" .. player.color
-            Global[func_name] = function() onSetActivePlayerClick(player.color) end
-            board.addContextMenuItem("Set Active Player", func_name)
-        end
-    end
-
-    -- Subscribe to turn changes
     Turns.enable = true
     Turns.pass_turns = true
     loadCameraMenu(false)
@@ -1698,71 +1679,25 @@ function onTealBoardClick(player, value, id)
     })
 end
 
--- Add this function to handle the context menu click
-function onSetActivePlayerClick(player_color)
-    setActivePlayer(player_color)
-end
-
--- Add turn change handler
-function onTurnBegin()
-    -- If timer was running, ensure it continues for new player
-    if timer_running then
-        -- Restart timer for new active player
-        pauseTimer()
-        startTimer()
-    end
-    
-    -- Update UI for all players
-    loadCameraMenu(true)
-end
-
-function onTurnChange(player_color)
-    if player_color and player_color ~= "" then
-        -- If timer is running, handle the transition
-        if timer_running then
-            -- Pause current player's timer
-            pauseTimer()
-            -- Set up new active player
-            Turns.turn_color = player_color
-            -- Start timer for new player
-            startTimer()
-        else
-            -- Just update the active player without starting timer
-            Turns.turn_color = player_color
-        end
-        
-        -- Update UI highlighting to use bold text for active player
-        for _, player in ipairs(active_players) do
-            local timerId = player.color:lower() .. "Timer"
-            if player.color == player_color then
-                UI.setAttribute(timerId, "fontStyle", "Bold")
-            else
-                UI.setAttribute(timerId, "fontStyle", "Normal")
-            end
-        end
-    end
-end
-
-function onPlayerTurn(player_color_previous, player_color_next)
-    if timer_running then
-        if player_color_previous and player_color_previous ~= "" then
-            Turns.turn_color = player_color_previous
-            pauseTimer()
-        end
-        
-        if player_color_next and player_color_next ~= "" then
-            Turns.turn_color = player_color_next
-            startTimer()
-        end
-    end
-    
-    -- Update UI highlighting to use bold text for active player
+-- Helper function for UI updates
+function updatePlayerTimerUI(active_color)
     for _, player in ipairs(active_players) do
         local timerId = player.color:lower() .. "Timer"
-        if player.color == player_color_next then
+        if player.color == active_color then
             UI.setAttribute(timerId, "fontStyle", "Bold")
         else
             UI.setAttribute(timerId, "fontStyle", "Normal")
         end
     end
+end
+
+function onTurnChange(player_color)
+    if not player_color or player_color == "" then return end
+    
+    if timer_running then
+        pauseTimer()
+        startTimer()
+    end
+    
+    updatePlayerTimerUI(player_color)
 end
