@@ -1304,12 +1304,12 @@ function set_game_in_progress(params)
     -- end
 end
 
--- Add these variables near the top with other globals
+
+-- Timer / camera control logic
 player_timers = {}
 timer_running = false
 timer_start_time = 0
 
--- variable to store the timer function reference
 local timer_id = nil
 
 function startTimer()    
@@ -1330,7 +1330,6 @@ function startTimer()
     loadCameraMenu()
 end
 
--- Helper function to format time consistently
 function formatTime(seconds)
     local minutes = math.floor(seconds / 60)
     seconds = seconds % 60
@@ -1553,7 +1552,6 @@ function loadCameraMenu(menuOpen)
     UI.setXml(xml)
 end
 
--- Helper function to generate player timer displays
 function generatePlayerTimerDisplays()
     local playerTimersXml = ""
     local buttonColors = {
@@ -1675,27 +1673,15 @@ function onTealBoardClick(player, value, id)
     })
 end
 
--- Helper function for UI updates
 function updatePlayerTimerUI(active_color)
     for _, player in ipairs(active_players) do
         local timerId = player.color:lower() .. "Timer"
         if player.color == active_color then
             UI.setAttribute(timerId, "fontStyle", "Bold")
-            UI.setAttribute(timerId, "fontSize", "15")
+            UI.setAttribute(timerId, "fontSize", "20")
         else
             UI.setAttribute(timerId, "fontStyle", "Normal")
             UI.setAttribute(timerId, "fontSize", "14")
         end
     end
-end
-
-function onTurnChange(player_color)
-    if not player_color or player_color == "" then return end
-    
-    if timer_running then
-        pauseTimer()
-        startTimer()
-    end
-    
-    updatePlayerTimerUI(player_color)
 end
