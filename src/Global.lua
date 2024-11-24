@@ -1502,7 +1502,7 @@ function loadCameraMenu(menuOpen)
             <!-- Timer Controls at bottom -->
             <HorizontalLayout spacing="5" padding="0 60 0 0">
                 <Button text="%s" id="playPauseButton" textColor="White" onClick="onPlayPauseTimer" width="30" flexibleWidth="0"/>
-                <Button text="Reset" id="resetTimer" textColor="Grey" onClick="onResetTimer" width="55" fontStyle="Normal" tooltip="Reset all timers back to 0"/>
+                <Button text="Reset" id="resetTimer" textColor="Grey" onClick="resetTimer" width="55" fontStyle="Normal" tooltip="Reset all timers back to 0"/>
             </HorizontalLayout>
         </VerticalLayout>
     ]], generatePlayerTimerDisplays(), 
@@ -1517,7 +1517,7 @@ function loadCameraMenu(menuOpen)
 
         <VerticalLayout
             id="cameraLayout"
-            height="250"
+            height="300"
             width="160"
             allowDragging="true"
             returnToOriginalPositionWhenReleased="false"
@@ -1525,7 +1525,7 @@ function loadCameraMenu(menuOpen)
             anchorMin="1 1"
             anchorMax="1 1"
             offsetXY="-5 -150"
-            spacing="10"
+            spacing="5"
             childForceExpandHeight="false"
             childForceExpandWidth="true"
             >
@@ -1570,8 +1570,8 @@ function generatePlayerTimerDisplays()
         
         playerTimersXml = playerTimersXml .. string.format(
             [[<HorizontalLayout spacing="5">
-                <Text id="%sTimer" text="%s" color="%s" fontStyle="%s" width="85"/>
-                <Button text="%s" id="%sCamera" textColor="%s" onClick="on%sBoardClick" width="85"/>
+                <Text id="%sTimer" text="%s" color="%s" fontStyle="%s" preferredWidth="25" preferredHeight="18"/>
+                <Button text="%s" id="%sCamera" textColor="%s" onClick="on%sBoardClick" preferredWidth="30"/>
             </HorizontalLayout>]],
             player.color:lower(),
             timeDisplay,          -- Use current time instead of "00:00"
@@ -1587,7 +1587,6 @@ function generatePlayerTimerDisplays()
     return playerTimersXml
 end
 
--- Timer control functions
 function onPlayPauseTimer(player, value, id)
     if timer_running then
         pauseTimer()
@@ -1598,9 +1597,6 @@ function onPlayPauseTimer(player, value, id)
     loadCameraMenu(true)
 end
 
-function onResetTimer(player, value, id)
-    resetTimer()
-end
 
 function toggleCameraControls(player, value, id)
     local isOpen = UI.getAttribute("cameraControls", "active") == "true"
@@ -1685,8 +1681,10 @@ function updatePlayerTimerUI(active_color)
         local timerId = player.color:lower() .. "Timer"
         if player.color == active_color then
             UI.setAttribute(timerId, "fontStyle", "Bold")
+            UI.setAttribute(timerId, "fontSize", "15")
         else
             UI.setAttribute(timerId, "fontStyle", "Normal")
+            UI.setAttribute(timerId, "fontSize", "14")
         end
     end
 end
