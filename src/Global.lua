@@ -117,6 +117,8 @@ local Counters = require("src/Counters")
 local Initiative = require("src/InitiativeMarker")
 local SetupControl = require("src/SetupControl")
 local Supplies = require("src/Supplies")
+local Camera = require("src/Camera")
+local Timer = require("src/Timer")
 
 function assignPlayerToAvailableColor(player, color)
     local color = table.remove(available_colors, 1)
@@ -1306,7 +1308,6 @@ function set_game_in_progress(params)
 end
 
 function onLoad()
-
     Initiative.add_menu()
 
     for _, obj in pairs(getObjectsWithTag("City")) do
@@ -1330,7 +1331,6 @@ function onLoad()
 
         Counters.setup()
     elseif debug then
-
         Campaign.components_visibility(true)
         BaseGame.components_visibility({
             is_visible = true,
@@ -1374,4 +1374,54 @@ function onLoad()
         face_up_discard_action_deck.interactable = false
         face_up_discard_action_deck.locked = false -- set this to false otherwise it breaks
     end
+
+    -- Initialize turn system
+    Turns.enable = true
+    Turns.pass_turns = true
+
+    -- Initialize timer system
+    Timer.reset()  -- Reset all player timers
+    loadCameraTimerMenu(false)  -- Load the UI with menu closed initially
 end
+
+-- Timer UI wrapper functions - these need to stay in Global for UI interaction
+function startTimer() Timer.start(active_players); loadCameraTimerMenu() end
+function pauseTimer() Timer.pause(); loadCameraTimerMenu(true) end
+function resetTimer() Timer.reset(); loadCameraTimerMenu(true) end
+
+function loadCameraTimerMenu(menuOpen)
+    -- if menuOpen is nil, leave the cameraControls active state alone
+    if menuOpen == nil then
+        menuOpen = UI.getAttribute("cameraControls", "active")
+    end
+
+    local controlsXml = Camera.generateControlsXml(active_players, Timer.running)
+    local menuXml = Camera.generateMenuXml(menuOpen, controlsXml)
+    UI.setXml(menuXml)
+end
+
+function onPlayPauseTimer(player, value, id)
+    if Timer.running then
+        pauseTimer()
+    else
+        startTimer()
+    end
+    loadCameraTimerMenu(true)
+end
+
+
+function toggleCameraControls(player, value, id)
+    local isOpen = UI.getAttribute("cameraControls", "active") == "true"
+    loadCameraTimerMenu(not isOpen)
+end
+
+-- setup wrapper functions for Camera.lua controls since UI onClick requires
+-- the functions to be in Global scope
+function onCourtClick(...) Camera.onCourtClick(...) end
+function onActionCardsClick(...) Camera.onActionCardsClick(...) end
+function onDiceBoardClick(...) Camera.onDiceBoardClick(...) end
+function onMapClick(...) Camera.onMapClick(...) end
+function onRedBoardClick(...) Camera.onRedBoardClick(...) end
+function onWhiteBoardClick(...) Camera.onWhiteBoardClick(...) end
+function onYellowBoardClick(...) Camera.onYellowBoardClick(...) end
+function onTealBoardClick(...) Camera.onTealBoardClick(...) end
