@@ -6,130 +6,181 @@ local Counters = require("src/Counters")
 
 local gold = {0.8, 0.58, 0.27}
 
+local optionsText_params = {
+    click_function = "doNothing",
+    function_owner = self,
+    label = "Options",
+    tooltip = "Toggle the below options to modify the game setup",
+    position = {-0.52, 0.5, -1.15},
+    width = 0,
+    height = 0,
+    font_size = 90,
+    scale = {1, 1, 1},
+    color = {0.05, 0.05, 0.05},
+    font_color = gold,
+}
+
 local toggleLeadersWITHOUT_params = {
-    index = 0,
+    index = 1,
     click_function = "toggle_leaders",
     function_owner = self,
-    label = "Play with Leaders",
-    tooltip = "Enable leaders",
-    position = {0, 0.5, -1.17},
-    width = 820,
+    label = " Leaders & Lore ",
+    tooltip = "Enable Leaders & Lore mode for base game",
+    position = {-0.51, 0.5, -0.59},
+    width = 460,
     height = 260,
-    font_size = 72,
+    font_size = 60,
     scale = {1, 1, 1},
     color = {0.8, 0.3, 0.2},
     font_color = {0, 0, 0}
 }
 local toggleLeadersWITH_params = {
-    index = 0,
+    index = 1,
     click_function = "toggle_leaders",
     function_owner = self,
-    label = "Play with Leaders",
-    tooltip = "Disable leaders",
-    position = {0, 0.5, -1.17},
-    width = 820,
+    label = " Leaders & Lore ",
+    tooltip = "Disable Leaders & Lore mode for base game",
+    position = {-0.51, 0.5, -0.59},
+    width = 460,
     height = 260,
-    font_size = 72,
+    font_size = 60,
     scale = {1, 1, 1},
     color = {0.2, 0.5, 0.2},
     font_color = {0, 0, 0}
 }
 local toggleExpansionEXCLUDE_params = {
-    index = 1,
+    index = 2,
     click_function = "toggle_expansion",
     function_owner = self,
     label = "Leaders & Lore\nExpansion Pack",
-    tooltip = "Enable Leaders & Lore Pack",
-    position = {-0.45, 0.5, -0.59},
-    width = 440,
+    tooltip = "Enable Leaders & Lore Expansion Pack",
+    position = {-0.51, 0.5, 0},
+    width = 460,
     height = 260,
     font_size = 60,
     scale = {1, 1, 1},
     color = {0.8, 0.3, 0.2}
 }
 local toggleExpansionINCLUDE_params = {
-    index = 1,
+    index = 2,
     click_function = "toggle_expansion",
     function_owner = self,
     label = "Leaders & Lore\nExpansion Pack",
-    tooltip = "Disable Leaders & Lore Pack",
-    position = {-0.45, 0.5, -0.59},
-    width = 440,
+    tooltip = "Disable Leaders & Lore Expansion Pack",
+    position = {-0.51, 0.5, 0},
+    width = 460,
     height = 260,
     font_size = 60,
     scale = {1, 1, 1},
     color = {0.3, 0.5, 0.2}
 }
 local splitDiscardFACEDOWN_params = {
-    index = 2,
+    index = 3,
     function_owner = self,
     click_function = "toggle_split_discard",
     label = "Split\nDiscard Piles",
-    tooltip = "Enable Split Discard",
-    position = {0.45, 0.5, -0.59},
-    width = 440,
+    tooltip = "Enable Split Face-Up Discard Pile",
+    position = {-0.51, 0.5, 0.59},
+    width = 460,
     height = 260,
     font_size = 60,
     scale = {1, 1, 1},
     color = {0.8, 0.3, 0.2}
 }
 local splitDiscardFACEUP_params = {
-    index = 2,
+    index = 3,
     function_owner = self,
     click_function = "toggle_split_discard",
     label = "Split\nDiscard Piles",
-    tooltip = "Disable Split Discard",
-    position = {0.45, 0.5, -0.59},
-    width = 440,
+    tooltip = "Use Single Face-Down Discard Pile",
+    position = {-0.51, 0.5, 0.59},
+    width = 460,
     height = 260,
     font_size = 60,
     scale = {1, 1, 1},
     color = {0.3, 0.5, 0.2}
 }
+local miniaturesDISABLED_params = {
+    index = 4,
+    function_owner = self,
+    click_function = "toggle_miniatures",
+    label = "Use Miniatures",
+    tooltip = "Enable Miniatures",
+    position = {-0.51, 0.5, 1.17},
+    width = 460,
+    height = 260,
+    font_size = 60,
+    scale = {1, 1, 1},
+    color = {0.8, 0.3, 0.2}
+}
+local miniaturesENABLED_params = {
+    index = 4,
+    function_owner = self,
+    click_function = "toggle_miniatures",
+    label = "Use Miniatures",
+    tooltip = "Disable Miniatures",
+    position = {-0.51, 0.5, 1.17},
+    width = 460,
+    height = 260,
+    font_size = 60,
+    scale = {1, 1, 1},
+    color = {0.3, 0.5, 0.2}
+}
+local setupStartGame_params = {
+    click_function = "doNothing",
+    function_owner = self,
+    label = "Start",
+    tooltip = "Once all players have joined, and options are set",
+    position = {0.52, 0.5, -1.15},
+    width = 0,
+    height = 0,
+    font_size = 90,
+    scale = {1, 1, 1},
+    color = {0.05, 0.05, 0.05},
+    font_color = gold,
+}
 local setupBaseGame_params = {
-    index = 3,
+    index = 6,
     click_function = "setup_base_game",
     function_owner = self,
-    label = "Start Base Game",
-    position = {0, 0.5, -0.01},
-    width = 820,
+    label = "Base Game \nSetup",
+    position = {0.52, 0.5, -0.59},
+    width = 460,
     height = 260,
-    font_size = 90,
+    font_size = 60,
     scale = {1, 1, 1},
-    -- color = {0.4, 0.6, 0.6},
-    color = {0.05, 0.05, 0.05},
-    font_color = gold,
-    hover_color = {0.1, 0.1, 0.1}
+    color = {0.7, 0.7, 0.7},
+    font_color = black,
+    hover_color = {0.7, 0.48, 0.17}
 }
 local setupCampaignGame_params = {
-    index = 4,
+    index = 7,
     click_function = "setup_campaign",
     function_owner = self,
-    label = "Start Campaign",
-    position = {0, 0.5, 0.57},
-    width = 820,
+    label = "Campaign \nSetup",
+    position = {0.52, 0.5, 0},
+    width = 460,
     height = 260,
-    font_size = 90,
+    font_size = 60,
     scale = {1, 1, 1},
-    -- color = {0.4, 0.6, 0.6},
-    color = {0.05, 0.05, 0.05},
-    font_color = gold,
-    hover_color = {0.1, 0.1, 0.1}
+    color = {0.7, 0.7, 0.7},
+    font_color = black,
+    hover_color = {0.7, 0.48, 0.17}
 }
 local customSetup_params = {
-    index = 6,
+    index = 8,
     function_owner = self,
     click_function = "custom_setup",
-    label = "Manual Setup",
+    label = "Manual \nSetup",
     tooltip = "",
-    position = {0, 0.5, 1.15},
-    width = 820,
+    position = {0.52, 0.5, 0.59},
+    width = 460,
     height = 260,
-    font_size = 90,
+    font_size = 60,
     scale = {1, 1, 1},
-    color = {0.05, 0.05, 0.05},
-    font_color = gold,
-    hover_color = {0.1, 0.1, 0.1}
+    color = {0.7, 0.7, 0.7},
+    font_color = black,
+    hover_color = {0.7, 0.48, 0.17}
 }
 
 SetupControl = {
@@ -146,13 +197,15 @@ function SetupControl:new(o)
 end
 
 function onload()
+    self.createButton(optionsText_params)
     self.createButton(toggleLeadersWITHOUT_params)
     self.createButton(toggleExpansionEXCLUDE_params)
     self.createButton(splitDiscardFACEDOWN_params)
+    self.createButton(miniaturesDISABLED_params)
+    self.createButton(setupStartGame_params)
     self.createButton(setupBaseGame_params)
     self.createButton(setupCampaignGame_params)
     self.createButton(customSetup_params)
-
 end
 
 function toggle_leaders(obj, color, alt_click)
@@ -187,6 +240,17 @@ function toggle_split_discard()
         self.editButton(splitDiscardFACEUP_params)
     else
         self.editButton(splitDiscardFACEDOWN_params)
+    end
+end
+
+function toggle_miniatures()
+    local toggle = Global.getVar("with_miniatures")
+    toggle = not toggle 
+    Global.setVar("with_miniatures", toggle)
+    if (toggle) then
+        self.editButton(miniaturesENABLED_params)
+    else
+        self.editButton(miniaturesDISABLED_params)
     end
 end
 
