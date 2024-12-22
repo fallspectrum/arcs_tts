@@ -81176,15 +81176,15 @@
       "GUID": "8e8851",
       "Name": "Custom_Model",
       "Transform": {
-        "posX": 3.072583,
-        "posY": 0.9474193,
-        "posZ": -17.827776,
-        "rotX": -2.7792405E-06,
-        "rotY": 179.972656,
-        "rotZ": 1.68544429E-05,
-        "scaleX": 1.34999979,
-        "scaleY": 1.34999979,
-        "scaleZ": 1.34999979
+        "posX": 4.09578753,
+        "posY": 1.99078965,
+        "posZ": -7.331021,
+        "rotX": 0.000335521123,
+        "rotY": 179.989182,
+        "rotZ": -0.0008361233,
+        "scaleX": 2.449999,
+        "scaleY": 2.449999,
+        "scaleZ": 2.449999
       },
       "Nickname": "Grey Agent",
 >>>>>>> 9709666 (intermediate progress)
@@ -81287,15 +81287,15 @@
       "GUID": "339446",
       "Name": "Custom_Model",
       "Transform": {
-        "posX": 4.563876,
-        "posY": 0.938815534,
-        "posZ": -18.237175,
-        "rotX": 4.396617E-05,
-        "rotY": 180.001175,
-        "rotZ": 8.667645E-06,
-        "scaleX": 1.64999962,
-        "scaleY": 1.64999962,
-        "scaleZ": 1.64999962
+        "posX": 7.190018,
+        "posY": 1.978363,
+        "posZ": -6.86070728,
+        "rotX": 0.0008143795,
+        "rotY": 225.0088,
+        "rotZ": -0.00034504,
+        "scaleX": 2.749999,
+        "scaleY": 2.749999,
+        "scaleZ": 2.749999
       },
       "Nickname": "Grey Flagship",
 >>>>>>> 9709666 (intermediate progress)
@@ -81397,15 +81397,15 @@
       "GUID": "5983db",
       "Name": "Custom_Model",
       "Transform": {
-        "posX": 4.365651,
-        "posY": 1.11772287,
-        "posZ": -19.5530815,
-        "rotX": 0.000181070209,
-        "rotY": 179.9928,
-        "rotZ": 2.26328357E-05,
-        "scaleX": 1.4,
-        "scaleY": 1.4,
-        "scaleZ": 1.4
+        "posX": 5.480476,
+        "posY": 2.29529,
+        "posZ": -7.10995054,
+        "rotX": 0.0008647233,
+        "rotY": 225.011658,
+        "rotZ": -0.000348525675,
+        "scaleX": 2.49999928,
+        "scaleY": 2.49999928,
+        "scaleZ": 2.49999928
       },
       "Nickname": "Grey Imperial Ship",
       "Description": "",
@@ -81463,9 +81463,9 @@
             "rotX": 3.477821E-05,
             "rotY": 179.99559,
             "rotZ": -1.73165347E-07,
-            "scaleX": 1.4,
-            "scaleY": 1.4,
-            "scaleZ": 1.4
+            "scaleX": 2.49999928,
+            "scaleY": 2.49999928,
+            "scaleZ": 2.49999928
           },
           "Nickname": "Grey Imperial Ship (Damaged)",
           "Description": "",
@@ -81518,15 +81518,15 @@
       "GUID": "b2b35c",
       "Name": "Custom_Model",
       "Transform": {
-        "posX": 2.9980967,
-        "posY": 1.07222915,
-        "posZ": -19.7390385,
-        "rotX": 0.08466091,
-        "rotY": 149.972229,
-        "rotZ": 0.110736266,
-        "scaleX": 1.15,
-        "scaleY": 1.15,
-        "scaleZ": 1.15
+        "posX": 2.58292365,
+        "posY": 2.23319554,
+        "posZ": -7.00218058,
+        "rotX": 0.07703064,
+        "rotY": 224.98,
+        "rotZ": 0.110085078,
+        "scaleX": 2.249999,
+        "scaleY": 2.249999,
+        "scaleZ": 2.249999
       },
       "Nickname": "Grey Ship (Damaged)",
 >>>>>>> 9709666 (intermediate progress)
@@ -81621,9 +81621,9 @@
             "rotX": 6.078295E-05,
             "rotY": 149.972366,
             "rotZ": -0.000517167267,
-            "scaleX": 1.15,
-            "scaleY": 1.15,
-            "scaleZ": 1.15
+            "scaleX": 2.249999,
+            "scaleY": 2.249999,
+            "scaleZ": 2.249999
           },
           "Nickname": "Grey Ship (Fresh)",
           "Description": "",
@@ -81676,15 +81676,15 @@
       "GUID": "6e6f6b",
       "Name": "Custom_Model",
       "Transform": {
-        "posX": 1.913908,
-        "posY": 1.07198286,
-        "posZ": -18.9026947,
-        "rotX": -0.002548784,
-        "rotY": 29.9756622,
-        "rotZ": -0.000228589823,
-        "scaleX": 1.15,
-        "scaleY": 1.15,
-        "scaleZ": 1.15
+        "posX": 1.30514669,
+        "posY": 2.23267221,
+        "posZ": -7.32362652,
+        "rotX": -0.000814068364,
+        "rotY": 44.97855,
+        "rotZ": 0.000348984729,
+        "scaleX": 2.249999,
+        "scaleY": 2.249999,
+        "scaleZ": 2.249999
       },
       "Nickname": "Grey Ship (Fresh)",
       "Description": "",
@@ -81741,9 +81741,9 @@
             "rotX": 0.08224201,
             "rotY": 29.9756851,
             "rotZ": 0.100618444,
-            "scaleX": 1.15,
-            "scaleY": 1.15,
-            "scaleZ": 1.15
+            "scaleX": 2.249999,
+            "scaleY": 2.249999,
+            "scaleZ": 2.249999
           },
           "Nickname": "Grey Ship (Damaged)",
           "Description": "",
