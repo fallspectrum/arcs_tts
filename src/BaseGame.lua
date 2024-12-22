@@ -695,4 +695,53 @@ function BaseGame.setupPlayers(ordered_players, setup_card)
     end
 end
 
+function BaseGame.miniatures_visibility(show)
+    local visibility = show and {} or {"Red", "White", "Yellow", "Teal", "Black", "Grey"}
+    local DISPLAY_HEIGHT = 5
+    
+    local function safelyMoveObject(obj, shouldRaise)
+        if obj and not obj.isDestroyed() then
+            -- Set visibility first
+            obj.setInvisibleTo(visibility)
+            Global.call("move_and_lock_object", {
+                obj = obj,
+                is_visible = show
+            })
+            
+            -- Then attempt position change if not locked
+            if not obj.getLock() then
+                local pos = obj.getPosition()
+                local newY = shouldRaise and DISPLAY_HEIGHT or 1
+                local success = pcall(function()
+                    -- Only move if showing, or if hiding and currently elevated
+                    if shouldRaise or pos.y > 1 then
+                        obj.teleport({pos.x, newY, pos.z})
+                    end
+                end)
+                if not success then
+                    LOG.INFO("Failed to teleport object: " .. obj.getGUID())
+                end
+            end
+        end
+    end
+
+    -- Handle miniatures first (they should move before meeples)
+    local miniatures = Global.getVar("miniatures_GUIDs")
+    if miniatures then
+        for _, guid in pairs(miniatures) do
+            local obj = getObjectFromGUID(guid)
+            safelyMoveObject(obj, show)
+        end
+    end
+
+    -- Handle meeples after miniatures
+    local meeples = Global.getVar("meeples_GUIDs")
+    if meeples then
+        for _, guid in pairs(meeples) do
+            local obj = getObjectFromGUID(guid)
+            safelyMoveObject(obj, not show)
+        end
+    end
+end
+
 return BaseGame

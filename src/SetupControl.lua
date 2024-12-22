@@ -266,8 +266,12 @@ function toggle_miniatures()
     Global.setVar("with_miniatures", toggle)
     if (toggle) then
         self.editButton(miniaturesENABLED_params)
+        -- Hide meeples, show miniatures
+        BaseGame.miniatures_visibility(true)
     else
         self.editButton(miniaturesDISABLED_params)
+        -- Show meeples, hide miniatures
+        BaseGame.miniatures_visibility(false)
     end
 end
 
