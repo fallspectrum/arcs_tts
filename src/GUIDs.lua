@@ -53,18 +53,18 @@ chapter_pawn_GUID = "9c3ac8"
 -- Setup Menu example pieces
 meeples_GUIDs = {
     fresh_ship = "6e6f6b",
-    damaged_ship = "b2b35c",
+    damaged_ship = "b2b35c"
+}
+
+unchanged_meeples_GUIDs = {
     agent = "8e8851",
     imperial_ship = "5983db",
-    flag_ship = "339446",
+    flag_ship = "339446"
 }
 
 miniatures_GUIDs = {
     fresh_ship = "000000",
-    damaged_ship = "000000",
-    agent = "000000",
-    imperial_ship = "000000",
-    flag_ship = "000000",
+    damaged_ship = "000000"
 }
 
 -- Players Pieces

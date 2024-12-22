@@ -6,7 +6,7 @@ local Counters = require("src/Counters")
 
 local gold = {0.8, 0.58, 0.27}
 local HEADER_FONT_SIZE = 170
-local BUTTON_FONT_SIZE = 110
+local BUTTON_FONT_SIZE = 100
 local HEADER_SCALE = {0.6, 0.6, 0.6}
 local BUTTON_SCALE = {0.6, 0.6, 0.6}
 local HEADER_WIDTH = 0

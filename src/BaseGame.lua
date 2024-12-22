@@ -697,35 +697,28 @@ end
 
 function BaseGame.miniatures_visibility(show)
     local visibility = show and {} or {"Red", "White", "Yellow", "Teal", "Black", "Grey"}
-    local DISPLAY_HEIGHT = 5
+    local DISPLAY_HEIGHT = 7
     
     local function safelyMoveObject(obj, shouldRaise)
         if obj and not obj.isDestroyed() then
-            -- Set visibility first
-            obj.setInvisibleTo(visibility)
-            Global.call("move_and_lock_object", {
-                obj = obj,
-                is_visible = show
-            })
+            -- Update position
+            local pos = obj.getPosition()
+            -- print(string.format("Object %s starting position: x=%.2f, y=%.2f, z=%.2f", 
+            --     obj.getName() or obj.getGUID(), pos.x, pos.y, pos.z))
             
-            -- Then attempt position change if not locked
-            if not obj.getLock() then
-                local pos = obj.getPosition()
-                local newY = shouldRaise and DISPLAY_HEIGHT or 1
-                local success = pcall(function()
-                    -- Only move if showing, or if hiding and currently elevated
-                    if shouldRaise or pos.y > 1 then
-                        obj.teleport({pos.x, newY, pos.z})
-                    end
-                end)
-                if not success then
-                    LOG.INFO("Failed to teleport object: " .. obj.getGUID())
-                end
-            end
+            -- Add or subtract DISPLAY_HEIGHT based on shouldRaise
+            local newY = pos.y + (shouldRaise and DISPLAY_HEIGHT or -DISPLAY_HEIGHT)
+            local newPos = {pos.x, newY, pos.z}
+            -- print(string.format("Object %s new position: x=%.2f, y=%.2f, z=%.2f", 
+            --     obj.getName() or obj.getGUID(), newPos[1], newPos[2], newPos[3]))
+            
+            obj.setPosition(newPos)
+            -- Only lock when hiding (not showing) the object
+            obj.setLock(not shouldRaise)
         end
     end
 
-    -- Handle miniatures first (they should move before meeples)
+    -- Handle miniatures first
     local miniatures = Global.getVar("miniatures_GUIDs")
     if miniatures then
         for _, guid in pairs(miniatures) do
