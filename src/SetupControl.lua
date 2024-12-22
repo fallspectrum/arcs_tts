@@ -151,7 +151,7 @@ local setupBaseGame_params = {
     scale = {1, 1, 1},
     color = {0.7, 0.7, 0.7},
     font_color = black,
-    hover_color = {0.7, 0.48, 0.17}
+    hover_color = {0.5, 0.3, 0.7}
 }
 local setupCampaignGame_params = {
     index = 7,
@@ -165,7 +165,7 @@ local setupCampaignGame_params = {
     scale = {1, 1, 1},
     color = {0.7, 0.7, 0.7},
     font_color = black,
-    hover_color = {0.7, 0.48, 0.17}
+    hover_color = {0.5, 0.3, 0.7}
 }
 local customSetup_params = {
     index = 8,
@@ -180,7 +180,7 @@ local customSetup_params = {
     scale = {1, 1, 1},
     color = {0.7, 0.7, 0.7},
     font_color = black,
-    hover_color = {0.7, 0.48, 0.17}
+    hover_color = {0.5, 0.3, 0.7}
 }
 
 SetupControl = {
@@ -210,6 +210,7 @@ end
 
 function toggle_leaders(obj, color, alt_click)
     local toggle = Global.getVar("with_leaders")
+    local expansion_toggle = Global.getVar("with_more_to_explore")
 
     toggle = not toggle
     Global.setVar("with_leaders", toggle)
@@ -218,17 +219,25 @@ function toggle_leaders(obj, color, alt_click)
         self.editButton(toggleLeadersWITH_params)
     else
         self.editButton(toggleLeadersWITHOUT_params)
+        if expansion_toggle then
+            toggle_expansion()
+        end
     end
 end
 
 function toggle_expansion()
     local toggle = Global.getVar("with_more_to_explore")
+    local leaders_toggle = Global.getVar("with_leaders")
 
     toggle = not toggle
     Global.setVar("with_more_to_explore", toggle)
 
     if (toggle) then
         self.editButton(toggleExpansionINCLUDE_params)
+        if not leaders_toggle then
+            Global.setVar("with_leaders", true)
+            self.editButton(toggleLeadersWITH_params)
+        end
     else
         self.editButton(toggleExpansionEXCLUDE_params)
     end

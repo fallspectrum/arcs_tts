@@ -81157,6 +81157,7 @@
       "XmlUI": ""
     },
     {
+<<<<<<< HEAD
       "GUID": "2840db",
       "Name": "CardCustom",
       "Transform": {
@@ -81171,6 +81172,22 @@
         "scaleZ": 1.15163875
       },
       "Nickname": "Court Discard Backer",
+=======
+      "GUID": "8e8851",
+      "Name": "Custom_Model",
+      "Transform": {
+        "posX": 3.072583,
+        "posY": 0.9474193,
+        "posZ": -17.827776,
+        "rotX": -2.7792405E-06,
+        "rotY": 179.972656,
+        "rotZ": 1.68544429E-05,
+        "scaleX": 1.34999979,
+        "scaleY": 1.34999979,
+        "scaleZ": 1.34999979
+      },
+      "Nickname": "Grey Agent",
+>>>>>>> 9709666 (intermediate progress)
       "Description": "",
       "GMNotes": "",
       "AltLookAngle": {
@@ -81179,6 +81196,7 @@
         "z": 0.0
       },
       "ColorDiffuse": {
+<<<<<<< HEAD
         "r": 0.713235259,
         "g": 0.713235259,
         "b": 0.713235259
@@ -81190,15 +81208,33 @@
       "LayoutGroupSortIndex": 0,
       "Value": 0,
       "Locked": true,
+=======
+        "r": 0.5294118,
+        "g": 0.5294118,
+        "b": 0.5294118
+      },
+      "Tags": [
+        "Agent",
+        "lock"
+      ],
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+>>>>>>> 9709666 (intermediate progress)
       "Grid": true,
       "Snap": true,
       "IgnoreFoW": false,
       "MeasureMovement": false,
+<<<<<<< HEAD
       "DragSelectable": false,
+=======
+      "DragSelectable": true,
+>>>>>>> 9709666 (intermediate progress)
       "Autoraise": true,
       "Sticky": true,
       "Tooltip": true,
       "GridProjection": false,
+<<<<<<< HEAD
       "HideWhenFaceDown": true,
       "Hands": false,
       "CardID": 48200,
@@ -81213,12 +81249,26 @@
           "UniqueBack": false,
           "Type": 1
         }
+=======
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomMesh": {
+        "MeshURL": "https://dl.dropboxusercontent.com/s/lgo8smowdfmfpuh/special.obj?dl=0",
+        "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/909043855030685825/E4F8201B8E24C0DAB503B7D98A77196BDAD7D66E/",
+        "NormalURL": "",
+        "ColliderURL": "",
+        "Convex": true,
+        "MaterialIndex": 1,
+        "TypeIndex": 1,
+        "CastShadows": true
+>>>>>>> 9709666 (intermediate progress)
       },
       "LuaScript": "",
       "LuaScriptState": "",
       "XmlUI": ""
     },
     {
+<<<<<<< HEAD
       "GUID": "93690a",
       "Name": "CardCustom",
       "Transform": {
@@ -81233,6 +81283,22 @@
         "scaleZ": 1.15163875
       },
       "Nickname": "Court Deck Backer",
+=======
+      "GUID": "339446",
+      "Name": "Custom_Model",
+      "Transform": {
+        "posX": 4.563876,
+        "posY": 0.938815534,
+        "posZ": -18.237175,
+        "rotX": 4.396617E-05,
+        "rotY": 180.001175,
+        "rotZ": 8.667645E-06,
+        "scaleX": 1.64999962,
+        "scaleY": 1.64999962,
+        "scaleZ": 1.64999962
+      },
+      "Nickname": "Grey Flagship",
+>>>>>>> 9709666 (intermediate progress)
       "Description": "",
       "GMNotes": "",
       "AltLookAngle": {
@@ -81241,6 +81307,7 @@
         "z": 0.0
       },
       "ColorDiffuse": {
+<<<<<<< HEAD
         "r": 0.713235259,
         "g": 0.713235259,
         "b": 0.713235259
@@ -81252,15 +81319,32 @@
       "LayoutGroupSortIndex": 0,
       "Value": 0,
       "Locked": true,
+=======
+        "r": 0.5294118,
+        "g": 0.5294118,
+        "b": 0.5294118
+      },
+      "Tags": [
+        "Campaign Only"
+      ],
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+>>>>>>> 9709666 (intermediate progress)
       "Grid": true,
       "Snap": true,
       "IgnoreFoW": false,
       "MeasureMovement": false,
+<<<<<<< HEAD
       "DragSelectable": false,
+=======
+      "DragSelectable": true,
+>>>>>>> 9709666 (intermediate progress)
       "Autoraise": true,
       "Sticky": true,
       "Tooltip": true,
       "GridProjection": false,
+<<<<<<< HEAD
       "HideWhenFaceDown": true,
       "Hands": false,
       "CardID": 48600,
@@ -81275,12 +81359,26 @@
           "UniqueBack": false,
           "Type": 1
         }
+=======
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomMesh": {
+        "MeshURL": "https://dl.dropboxusercontent.com/s/3ga602is61nd1li/flagship.obj?dl=0",
+        "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/909043855030685825/E4F8201B8E24C0DAB503B7D98A77196BDAD7D66E/",
+        "NormalURL": "",
+        "ColliderURL": "",
+        "Convex": true,
+        "MaterialIndex": 1,
+        "TypeIndex": 1,
+        "CastShadows": true
+>>>>>>> 9709666 (intermediate progress)
       },
       "LuaScript": "",
       "LuaScriptState": "",
       "XmlUI": ""
     },
     {
+<<<<<<< HEAD
       "GUID": "65a823",
       "Name": "CardCustom",
       "Transform": {
@@ -81295,6 +81393,21 @@
         "scaleZ": 1.15
       },
       "Nickname": "Imperial Council Backer",
+=======
+      "GUID": "5983db",
+      "Name": "Custom_Model",
+      "Transform": {
+        "posX": 4.365651,
+        "posY": 1.11772287,
+        "posZ": -19.5530815,
+        "rotX": 0.000181070209,
+        "rotY": 179.9928,
+        "rotZ": 2.26328357E-05,
+        "scaleX": 1.4,
+        "scaleY": 1.4,
+        "scaleZ": 1.4
+      },
+      "Nickname": "Grey Imperial Ship",
       "Description": "",
       "GMNotes": "",
       "AltLookAngle": {
@@ -81303,6 +81416,129 @@
         "z": 0.0
       },
       "ColorDiffuse": {
+        "r": 0.5294118,
+        "g": 0.5294118,
+        "b": 0.5294118
+      },
+      "Tags": [
+        "Campaign Only",
+        "lock",
+        "Ship"
+      ],
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomMesh": {
+        "MeshURL": "https://steamusercontent-a.akamaihd.net/ugc/2313225941418333649/44F26ADA0FDD6F47AA3609CF310A1B40A3BB6613/",
+        "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/909043855030685825/E4F8201B8E24C0DAB503B7D98A77196BDAD7D66E/",
+        "NormalURL": "",
+        "ColliderURL": "https://steamusercontent-a.akamaihd.net/ugc/15296120688659256/F0979E2C16DF05EAFABCFE4B0E7BDAC3100E6E95/",
+        "Convex": true,
+        "MaterialIndex": 1,
+        "TypeIndex": 1,
+        "CastShadows": true
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": "",
+      "States": {
+        "2": {
+          "GUID": "e0bcd0",
+          "Name": "Custom_Model",
+          "Transform": {
+            "posX": 4.3656373,
+            "posY": 0.958363533,
+            "posZ": -19.5530739,
+            "rotX": 3.477821E-05,
+            "rotY": 179.99559,
+            "rotZ": -1.73165347E-07,
+            "scaleX": 1.4,
+            "scaleY": 1.4,
+            "scaleZ": 1.4
+          },
+          "Nickname": "Grey Imperial Ship (Damaged)",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 0.5294118,
+            "g": 0.5294118,
+            "b": 0.5294118
+          },
+          "Tags": [
+            "Campaign Only",
+            "Ship"
+          ],
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomMesh": {
+            "MeshURL": "https://steamusercontent-a.akamaihd.net/ugc/15296120688687930/A5BEC3F0022C6373C90C77F1CD08F0A2040F0B58/",
+            "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/15296120688568743/95033EA45132FDAAB36BDE8A1DB6D698E2F61120/",
+            "NormalURL": "",
+            "ColliderURL": "",
+            "Convex": true,
+            "MaterialIndex": 1,
+            "TypeIndex": 0,
+            "CastShadows": true
+          },
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": ""
+        }
+      }
+    },
+    {
+      "GUID": "b2b35c",
+      "Name": "Custom_Model",
+      "Transform": {
+        "posX": 2.9980967,
+        "posY": 1.07222915,
+        "posZ": -19.7390385,
+        "rotX": 0.08466091,
+        "rotY": 149.972229,
+        "rotZ": 0.110736266,
+        "scaleX": 1.15,
+        "scaleY": 1.15,
+        "scaleZ": 1.15
+      },
+      "Nickname": "Grey Ship (Damaged)",
+>>>>>>> 9709666 (intermediate progress)
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+<<<<<<< HEAD
         "r": 0.713235259,
         "g": 0.713235259,
         "b": 0.713235259
@@ -81314,15 +81550,32 @@
       "LayoutGroupSortIndex": 0,
       "Value": 0,
       "Locked": true,
+=======
+        "r": 0.5294118,
+        "g": 0.5294118,
+        "b": 0.5294118
+      },
+      "Tags": [
+        "Ship"
+      ],
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+>>>>>>> 9709666 (intermediate progress)
       "Grid": true,
       "Snap": true,
       "IgnoreFoW": false,
       "MeasureMovement": false,
+<<<<<<< HEAD
       "DragSelectable": false,
+=======
+      "DragSelectable": true,
+>>>>>>> 9709666 (intermediate progress)
       "Autoraise": true,
       "Sticky": true,
       "Tooltip": true,
       "GridProjection": false,
+<<<<<<< HEAD
       "HideWhenFaceDown": true,
       "Hands": false,
       "CardID": 48700,
@@ -81341,6 +81594,203 @@
       "LuaScript": "",
       "LuaScriptState": "",
       "XmlUI": ""
+=======
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomMesh": {
+        "MeshURL": "https://steamusercontent-a.akamaihd.net/ugc/15296120689821350/CA6C113D769693267DBB9181CB124CEC75113BBC/",
+        "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/15296120695053284/C995A8AA231E87B1BD868952E7894E3615996B69/",
+        "NormalURL": "",
+        "ColliderURL": "https://steamusercontent-a.akamaihd.net/ugc/15296120695044200/FE59BB15C19392C9C20CDF350A7442A1B843BDB6/",
+        "Convex": true,
+        "MaterialIndex": 1,
+        "TypeIndex": 0,
+        "CastShadows": true
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": "",
+      "States": {
+        "1": {
+          "GUID": "5cccfd",
+          "Name": "Custom_Model",
+          "Transform": {
+            "posX": 2.99782443,
+            "posY": 1.07198417,
+            "posZ": -19.739006,
+            "rotX": 6.078295E-05,
+            "rotY": 149.972366,
+            "rotZ": -0.000517167267,
+            "scaleX": 1.15,
+            "scaleY": 1.15,
+            "scaleZ": 1.15
+          },
+          "Nickname": "Grey Ship (Fresh)",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 0.5294118,
+            "g": 0.5294118,
+            "b": 0.5294118
+          },
+          "Tags": [
+            "lock",
+            "Ship"
+          ],
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomMesh": {
+            "MeshURL": "https://dl.dropboxusercontent.com/s/78hb4achc6rdu7o/ship2.obj?dl=0",
+            "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/909043855030685825/E4F8201B8E24C0DAB503B7D98A77196BDAD7D66E/",
+            "NormalURL": "",
+            "ColliderURL": "https://steamusercontent-a.akamaihd.net/ugc/15295873849279141/2B38A831687027BA1C3B2341DCD0CDF45457287D/",
+            "Convex": true,
+            "MaterialIndex": 1,
+            "TypeIndex": 1,
+            "CastShadows": true
+          },
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": ""
+        }
+      }
+    },
+    {
+      "GUID": "6e6f6b",
+      "Name": "Custom_Model",
+      "Transform": {
+        "posX": 1.913908,
+        "posY": 1.07198286,
+        "posZ": -18.9026947,
+        "rotX": -0.002548784,
+        "rotY": 29.9756622,
+        "rotZ": -0.000228589823,
+        "scaleX": 1.15,
+        "scaleY": 1.15,
+        "scaleZ": 1.15
+      },
+      "Nickname": "Grey Ship (Fresh)",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.5278745,
+        "g": 0.5278745,
+        "b": 0.5278745
+      },
+      "Tags": [
+        "lock",
+        "Ship"
+      ],
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomMesh": {
+        "MeshURL": "https://dl.dropboxusercontent.com/s/78hb4achc6rdu7o/ship2.obj?dl=0",
+        "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/909043855030685825/E4F8201B8E24C0DAB503B7D98A77196BDAD7D66E/",
+        "NormalURL": "",
+        "ColliderURL": "https://steamusercontent-a.akamaihd.net/ugc/15295873849279141/2B38A831687027BA1C3B2341DCD0CDF45457287D/",
+        "Convex": true,
+        "MaterialIndex": 1,
+        "TypeIndex": 1,
+        "CastShadows": true
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": "",
+      "States": {
+        "2": {
+          "GUID": "ab0470",
+          "Name": "Custom_Model",
+          "Transform": {
+            "posX": 1.91382074,
+            "posY": 1.07224572,
+            "posZ": -18.9024544,
+            "rotX": 0.08224201,
+            "rotY": 29.9756851,
+            "rotZ": 0.100618444,
+            "scaleX": 1.15,
+            "scaleY": 1.15,
+            "scaleZ": 1.15
+          },
+          "Nickname": "Grey Ship (Damaged)",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 0.5294118,
+            "g": 0.5294118,
+            "b": 0.5294118
+          },
+          "Tags": [
+            "Ship"
+          ],
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomMesh": {
+            "MeshURL": "https://steamusercontent-a.akamaihd.net/ugc/15296120689821350/CA6C113D769693267DBB9181CB124CEC75113BBC/",
+            "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/15296120695053284/C995A8AA231E87B1BD868952E7894E3615996B69/",
+            "NormalURL": "",
+            "ColliderURL": "https://steamusercontent-a.akamaihd.net/ugc/15296120695044200/FE59BB15C19392C9C20CDF350A7442A1B843BDB6/",
+            "Convex": true,
+            "MaterialIndex": 1,
+            "TypeIndex": 0,
+            "CastShadows": true
+          },
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": ""
+        }
+      }
+>>>>>>> 9709666 (intermediate progress)
     }
   ]
 }
