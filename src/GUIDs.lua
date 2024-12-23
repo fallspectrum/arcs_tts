@@ -63,8 +63,8 @@ unchanged_meeples_GUIDs = {
 }
 
 miniatures_GUIDs = {
-    fresh_ship = "000000",
-    damaged_ship = "000000"
+    fresh_ship = "fb8e2b",
+    damaged_ship = "20d86f"
 }
 
 -- Players Pieces

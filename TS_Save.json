@@ -81790,7 +81790,288 @@
           "XmlUI": ""
         }
       }
+<<<<<<< HEAD
 >>>>>>> 9709666 (intermediate progress)
+=======
+    },
+    {
+      "GUID": "fb8e2b",
+      "Name": "Custom_Model",
+      "Transform": {
+        "posX": 1.280125,
+        "posY": -4.772197,
+        "posZ": -7.34328,
+        "rotX": -0.000824109,
+        "rotY": 44.9885674,
+        "rotZ": 0.0003488466,
+        "scaleX": 2.199999,
+        "scaleY": 2.199999,
+        "scaleZ": 2.199999
+      },
+      "Nickname": "Grey Miniature Ship (Fresh)",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.5278745,
+        "g": 0.5278745,
+        "b": 0.5278745
+      },
+      "Tags": [
+        "lock",
+        "Ship"
+      ],
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": true,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomMesh": {
+        "MeshURL": "https://steamusercontent-a.akamaihd.net/ugc/15297536208360569/7CCAF43D6693B6D90889D16493E568429E6689C3/",
+        "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/15297536208277737/46D45D5B90EB8E64ADCBB305CBABC5C258B990EC/",
+        "NormalURL": "",
+        "ColliderURL": "https://steamusercontent-a.akamaihd.net/ugc/15297536208362665/B758A7A4CBD55233A109402A89D5CCFCC7B8861A/",
+        "Convex": true,
+        "MaterialIndex": 0,
+        "TypeIndex": 1,
+        "CustomShader": {
+          "SpecularColor": {
+            "r": 0.712543666,
+            "g": 0.712543666,
+            "b": 0.712543666
+          },
+          "SpecularIntensity": 0.1,
+          "SpecularSharpness": 7.0,
+          "FresnelStrength": 0.4
+        },
+        "CastShadows": true
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": "",
+      "States": {
+        "2": {
+          "GUID": "20d86f",
+          "Name": "Custom_Model",
+          "Transform": {
+            "posX": 1.91382074,
+            "posY": 1.07224572,
+            "posZ": -18.9024544,
+            "rotX": 0.08224201,
+            "rotY": 29.9756851,
+            "rotZ": 0.100618444,
+            "scaleX": 2.1,
+            "scaleY": 2.1,
+            "scaleZ": 2.1
+          },
+          "Nickname": "Grey Miniature Ship (Damaged)",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 0.5294118,
+            "g": 0.5294118,
+            "b": 0.5294118
+          },
+          "Tags": [
+            "Ship"
+          ],
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomMesh": {
+            "MeshURL": "https://steamusercontent-a.akamaihd.net/ugc/15297536208449589/15DECBA99B7BDA42536D501D32DA7FBF2277DFD7/",
+            "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/15296120695051383/E8214AA05336B24E18F7BE519DFE438FB89E991C/",
+            "NormalURL": "",
+            "ColliderURL": "https://steamusercontent-a.akamaihd.net/ugc/15297536208463432/E50E8B5D0C4C4B310146EFB5BDF339009D0CA26B/",
+            "Convex": true,
+            "MaterialIndex": 0,
+            "TypeIndex": 1,
+            "CustomShader": {
+              "SpecularColor": {
+                "r": 0.712543666,
+                "g": 0.712543666,
+                "b": 0.712543666
+              },
+              "SpecularIntensity": 0.1,
+              "SpecularSharpness": 7.0,
+              "FresnelStrength": 0.4
+            },
+            "CastShadows": true
+          },
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": ""
+        }
+      }
+    },
+    {
+      "GUID": "20d86f",
+      "Name": "Custom_Model",
+      "Transform": {
+        "posX": 2.55385065,
+        "posY": -4.78191328,
+        "posZ": -6.93930864,
+        "rotX": 0.0008245411,
+        "rotY": 225.01619,
+        "rotZ": -0.000348353584,
+        "scaleX": 2.1,
+        "scaleY": 2.1,
+        "scaleZ": 2.1
+      },
+      "Nickname": "Grey Miniature Ship (Damaged)",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.5294118,
+        "g": 0.5294118,
+        "b": 0.5294118
+      },
+      "Tags": [
+        "Ship"
+      ],
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": true,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomMesh": {
+        "MeshURL": "https://steamusercontent-a.akamaihd.net/ugc/15297536208449589/15DECBA99B7BDA42536D501D32DA7FBF2277DFD7/",
+        "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/15296120695051383/E8214AA05336B24E18F7BE519DFE438FB89E991C/",
+        "NormalURL": "",
+        "ColliderURL": "https://steamusercontent-a.akamaihd.net/ugc/15297536208463432/E50E8B5D0C4C4B310146EFB5BDF339009D0CA26B/",
+        "Convex": true,
+        "MaterialIndex": 0,
+        "TypeIndex": 1,
+        "CustomShader": {
+          "SpecularColor": {
+            "r": 0.712543666,
+            "g": 0.712543666,
+            "b": 0.712543666
+          },
+          "SpecularIntensity": 0.1,
+          "SpecularSharpness": 7.0,
+          "FresnelStrength": 0.4
+        },
+        "CastShadows": true
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": "",
+      "States": {
+        "1": {
+          "GUID": "26bd2c",
+          "Name": "Custom_Model",
+          "Transform": {
+            "posX": 3.31763935,
+            "posY": 1.154748,
+            "posZ": -10.3860779,
+            "rotX": 6.968454E-06,
+            "rotY": 44.9914322,
+            "rotZ": -4.535959E-07,
+            "scaleX": 2.199999,
+            "scaleY": 2.199999,
+            "scaleZ": 2.199999
+          },
+          "Nickname": "Grey Miniature Ship (Fresh)",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 0.5278745,
+            "g": 0.5278745,
+            "b": 0.5278745
+          },
+          "Tags": [
+            "lock",
+            "Ship"
+          ],
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomMesh": {
+            "MeshURL": "https://steamusercontent-a.akamaihd.net/ugc/15297536208360569/7CCAF43D6693B6D90889D16493E568429E6689C3/",
+            "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/15297536208277737/46D45D5B90EB8E64ADCBB305CBABC5C258B990EC/",
+            "NormalURL": "",
+            "ColliderURL": "https://steamusercontent-a.akamaihd.net/ugc/15297536208362665/B758A7A4CBD55233A109402A89D5CCFCC7B8861A/",
+            "Convex": true,
+            "MaterialIndex": 0,
+            "TypeIndex": 1,
+            "CustomShader": {
+              "SpecularColor": {
+                "r": 0.712543666,
+                "g": 0.712543666,
+                "b": 0.712543666
+              },
+              "SpecularIntensity": 0.1,
+              "SpecularSharpness": 7.0,
+              "FresnelStrength": 0.4
+            },
+            "CastShadows": true
+          },
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": ""
+        }
+      }
+>>>>>>> dba9c73 (progress)
     }
   ]
 }
