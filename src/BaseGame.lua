@@ -205,6 +205,8 @@ end
 
 function BaseGame.setup(with_leaders, with_ll_expansion)
 
+    
+    
     local active_players = Global.call("getOrderedPlayers")
     Global.setVar("active_players", active_players)
     if (#active_players < 2 or #active_players > 4) then
@@ -701,25 +703,17 @@ function BaseGame.miniatures_visibility(show)
     
     local function safelyMoveObject(obj, shouldRaise)
         if obj and not obj.isDestroyed() then
-            -- Update position
             local pos = obj.getPosition()
-            print(string.format("Object %s starting position: x=%.2f, y=%.2f, z=%.2f", 
-              obj.getName() or obj.getGUID(), pos.x, pos.y, pos.z))
-            
             -- Add or subtract DISPLAY_HEIGHT based on shouldRaise
             local newY = pos.y + (shouldRaise and DISPLAY_HEIGHT or -DISPLAY_HEIGHT)
             local newPos = {pos.x, newY, pos.z}
-            print(string.format("Object %s new position: x=%.2f, y=%.2f, z=%.2f", 
-                obj.getName() or obj.getGUID(), newPos[1], newPos[2], newPos[3]))
-            
             obj.setPosition(newPos)
             -- Only lock when hiding (not showing) the object
             obj.setLock(not shouldRaise)
         end
     end
 
-    -- Handle miniatures first
-    local miniatures = Global.getVar("miniatures_GUIDs")
+    local miniatures = Global.getVar("setup_miniatures_GUIDs")
     if miniatures then
         for _, guid in pairs(miniatures) do
             local obj = getObjectFromGUID(guid)
@@ -727,14 +721,32 @@ function BaseGame.miniatures_visibility(show)
         end
     end
 
-    -- Handle meeples after miniatures
-    local meeples = Global.getVar("meeples_GUIDs")
+    local meeples = Global.getVar("setup_meeples_GUIDs")
     if meeples then
         for _, guid in pairs(meeples) do
             local obj = getObjectFromGUID(guid)
             safelyMoveObject(obj, not show)
         end
     end
+end
+
+-- destroy all grey setup meeples + miniatures
+function BaseGame.destroy_grey_setup_menu_objects()
+    local grey_miniatures = Global.getVar("setup_miniatures_GUIDs")
+    local grey_meeples = Global.getVar("setup_meeples_GUIDs")
+    local grey_unchanged_meeples = Global.getVar("setup_unchanged_meeples_GUIDs")
+    local function destroy_objects(guid_table)
+        if guid_table then
+            for _, guid in pairs(guid_table) do
+                local obj = getObjectFromGUID(guid)
+                if obj then obj.destroy() end
+            end
+        end
+    end
+
+    destroy_objects(grey_miniatures)
+    destroy_objects(grey_meeples)
+    destroy_objects(grey_unchanged_meeples)
 end
 
 return BaseGame

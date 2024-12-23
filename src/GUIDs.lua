@@ -51,18 +51,18 @@ seized_initiative_GUID = "e0f490"
 chapter_pawn_GUID = "9c3ac8"
 
 -- Setup Menu example pieces
-meeples_GUIDs = {
+setup_meeples_GUIDs = {
     fresh_ship = "6e6f6b",
     damaged_ship = "b2b35c"
 }
 
-unchanged_meeples_GUIDs = {
+setup_unchanged_meeples_GUIDs = {
     agent = "8e8851",
     imperial_ship = "5983db",
     flag_ship = "339446"
 }
 
-miniatures_GUIDs = {
+setup_miniatures_GUIDs = {
     fresh_ship = "fb8e2b",
     damaged_ship = "20d86f"
 }

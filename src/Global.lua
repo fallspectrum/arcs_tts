@@ -1240,6 +1240,8 @@ end
 
 function setup_custom_game()
 
+    BaseGame.destroy_grey_setup_menu_objects()
+
     for _, v in ipairs({"Red", "White", "Yellow", "Teal"}) do
         local arcs_player = ArcsPlayer:new{
             color = v
