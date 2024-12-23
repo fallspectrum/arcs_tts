@@ -749,4 +749,90 @@ function BaseGame.destroy_grey_setup_menu_objects()
     destroy_objects(grey_unchanged_meeples)
 end
 
+function BaseGame.upgrade_ships_to_miniatures()
+    print("Upgrading ships to miniatures")
+    
+    local ship_meshes = {
+        fresh = {
+            MeshURL = "https://steamusercontent-a.akamaihd.net/ugc/15297536208360569/7CCAF43D6693B6D90889D16493E568429E6689C3/",
+            DiffuseURL = "https://steamusercontent-a.akamaihd.net/ugc/15297536208277737/46D45D5B90EB8E64ADCBB305CBABC5C258B990EC/",
+            ColliderURL = "https://steamusercontent-a.akamaihd.net/ugc/15297536208362665/B758A7A4CBD55233A109402A89D5CCFCC7B8861A/"
+        },
+        damaged = {
+            MeshURL = "https://steamusercontent-a.akamaihd.net/ugc/15297536208449589/15DECBA99B7BDA42536D501D32DA7FBF2277DFD7/",
+            DiffuseURL = "https://steamusercontent-a.akamaihd.net/ugc/15296120695051383/E8214AA05336B24E18F7BE519DFE438FB89E991C/",
+            ColliderURL = "https://steamusercontent-a.akamaihd.net/ugc/15297536208463432/E50E8B5D0C4C4B310146EFB5BDF339009D0CA26B/"
+        }
+    }
+
+    local shader_settings = {
+        SpecularColor = {r = 0.712543666, g = 0.712543666, b = 0.712543666},
+        SpecularIntensity = 0.1,
+        SpecularSharpness = 7.0,
+        FresnelStrength = 0.4
+    }
+
+    -- Process ships in a supply bag
+    local function process_ships_in_bag(bag)
+        if not bag then return end
+        
+        local ships = bag.getObjects()
+        for _, ship_data in ipairs(ships) do
+            local name = ship_data.name
+            print("ship name: " .. name)
+            local is_damaged = string.find(name, "(Damaged)") ~= nil
+            local is_fresh = string.find(name, "(Fresh)") ~= nil
+            
+            -- Only process if exactly one of the tags is present
+            if is_damaged ~= is_fresh then
+                local mesh_type = is_damaged and "damaged" or "fresh"
+                local mesh_data = ship_meshes[mesh_type]
+                
+                local custom_mesh = {
+                    MeshURL = mesh_data.MeshURL,
+                    DiffuseURL = mesh_data.DiffuseURL,
+                    NormalURL = "",
+                    ColliderURL = mesh_data.ColliderURL,
+                    Convex = true,
+                    MaterialIndex = 0,
+                    TypeIndex = 1,
+                    CustomShader = shader_settings,
+                    CastShadows = true
+                }
+
+                local ship = bag.takeObject({
+                    position = bag.getPosition() + Vector(0, 3, 0),
+                    smooth = false
+                })
+                
+                Wait.frames(function()
+                    if ship and not ship.isDestroyed() then
+                        ship.setCustomObject(custom_mesh)
+                        ship.reload()
+                        Wait.frames(function()
+                            if ship and not ship.isDestroyed() then
+                                bag.putObject(ship)
+                            end
+                        end, 1)
+                    end
+                end, 1)
+            end
+        end
+    end
+
+    -- Find and process all ship supply bags
+    local player_colors = {"White", "Red", "Yellow", "Teal"}
+    for _, color in ipairs(player_colors) do
+        -- Find all objects in the scene
+        for _, obj in ipairs(getAllObjects()) do
+            -- Check if object is a bag with the expected name pattern
+            if obj.type == "Bag" and obj.getName():match(color .. " Ship Supply") then
+                print("Processing " .. color .. " ship supply")
+                process_ships_in_bag(obj)
+                break -- Found the bag for this color, move to next color
+            end
+        end
+    end
+end
+
 return BaseGame

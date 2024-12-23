@@ -15,6 +15,7 @@ debug_player_count = 2
 with_more_to_explore = false
 with_leaders = false
 is_face_up_discard_active = false
+with_miniatures = false
 
 oop_components = {
     {
@@ -1252,12 +1253,15 @@ function setup_custom_game()
         ArcsPlayer.components_visibility(v.color, true, true)
     end
 
+    with_miniatures = Global.getVar("with_miniatures")
+
     local p = {
         is_campaign = true,
         is_4p = true,
         leaders_and_lore = true,
         leaders_and_lore_expansion = true,
         with_faceup_discard = true,
+        with_miniatures = with_miniatures,
         players = {"Red", "White", "Yellow", "Teal"}
     }
     set_game_in_progress(p)
@@ -1276,6 +1280,9 @@ end
 --     players = active_players
 -- }
 function set_game_in_progress(params)
+    if (with_miniatures) then
+        BaseGame.upgrade_ships_to_miniatures()
+    end
     Counters.setup()
     local reach_board = getObjectFromGUID(reach_board_GUID)
     reach_board.setDescription("in progress")
