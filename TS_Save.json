@@ -3665,7 +3665,7 @@
       "Name": "Custom_Model",
       "Transform": {
         "posX": 2.5,
-        "posY": -52,
+        "posY": -52.15,
         "posZ": 0.0,
         "rotX": 1.00185025E-05,
         "rotY": 90.0,
@@ -58615,7 +58615,7 @@
       "Name": "ScriptingTrigger",
       "Transform": {
         "posX": 21.9862289,
-        "posY": 2,
+        "posY": 1.8,
         "posZ": 4.82518148,
         "rotX": 0.0,
         "rotY": 0.0,
