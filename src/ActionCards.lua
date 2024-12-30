@@ -134,6 +134,30 @@ function ActionCards.check_hands()
     return false
 end
 
+function ActionCards.find_nearby_faceup_action_cards(obj)
+    -- using physics BoxCast to find nearby faceup action cards
+    local pos = obj.getPosition()
+    local rot = obj.getRotation()
+    if pos then
+        print("BoxCast pos: " .. pos.x .. ", " .. pos.y .. ", " .. pos.z)
+    else
+        print("Warning: BoxCast position is nil")
+    end
+    print("attempting to box cast")
+    local box_cast = physics.BoxCast(pos, rot, 2)
+    print("BoxCast pos: " .. pos.x .. ", " .. pos.y .. ", " .. pos.z)
+    local nearby_objects = box_cast.getCollidingObjects()
+    local nearby_cards = {}
+    for _, obj in ipairs(nearby_objects) do
+        if obj.getName() == "Action Card" and obj.is_face_up then
+            print("Found nearby card: " .. obj.name .. " description: " .. obj.description)
+            nearby_cards[#nearby_cards + 1] = obj
+        end
+    end
+
+    return nearby_cards
+end
+
 function ActionCards.clear_played()
     Log.INFO("ActionCards.clear_played")
 
@@ -142,15 +166,25 @@ function ActionCards.clear_played()
     -- Error on union card
     for _, obj in pairs(played_objects) do
         if obj.hasTag("Court") then
-            broadcastToAll("Resolve & remove court cards so we can end round + clean up!", Color.Red)
-            return false
+            print("Found court card " .. obj.name .. " guid: " .. obj.guid)
+            if obj.hasTag("Union") then
+                print("Found union card " .. obj.name .. " guid: " .. obj.guid)
+                nearby_cards = ActionCards.find_nearby_faceup_action_cards(obj)
+                for _, card in ipairs(nearby_cards) do
+                    -- move card to center of table
+                    card.setPositionSmooth(Vector({0, 0, 0})) -- set position to center of table
+                    broadcastToAll("Take " .. card.description .. " back into your hand, whomever played " .. obj.description .. ".", Color.Purple)
+                end
+                local court_discard_backer = getObjectFromGUID(BaseGame.components.core.court_discard_backer)
+                obj.setPositionSmooth(court_discard_backer.getPosition())
+            end
         end
     end
 
     -- clean up
 
     for ct, obj in ipairs(played_objects) do
-        if (obj.getName() ~= "Action Card") then
+        if (obj.getName() ~= "Action Card" and obj.hasTag("Resource")) then
             supplies.returnObject(obj)
         elseif (Global.getVar("is_face_up_discard_active") and
             not obj.is_face_down) then
