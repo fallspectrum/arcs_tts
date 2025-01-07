@@ -203,9 +203,11 @@ function BaseGame.components_visibility(params)
     end
 end
 
-function BaseGame.setup(with_leaders, with_ll_expansion)
+function BaseGame.setup(with_leaders, with_ll_expansion, with_miniatures)
     
     BaseGame.destroy_grey_setup_menu_objects()
+ 
+    
 
     local active_players = Global.call("getOrderedPlayers")
     Global.setVar("active_players", active_players)
@@ -235,6 +237,12 @@ function BaseGame.setup(with_leaders, with_ll_expansion)
     -- D
     ActionCards.setup_deck(#active_players)
     BaseGame.setupBaseCourt(#active_players)
+
+    if with_miniatures then
+        BaseGame.upgrade_ships_to_miniatures()
+    else
+        BaseGame.destroy_miniature_ship_bags()
+    end
 
     chosen_setup_card = BaseGame.chooseSetupCard(#active_players)
     BaseGame.setupOutOfPlayClusters(chosen_setup_card)
@@ -749,90 +757,69 @@ function BaseGame.destroy_grey_setup_menu_objects()
     destroy_objects(grey_unchanged_meeples)
 end
 
-function BaseGame.upgrade_ships_to_miniatures()
-    print("Upgrading ships to miniatures")
-    
-    local ship_meshes = {
-        fresh = {
-            MeshURL = "https://steamusercontent-a.akamaihd.net/ugc/15297536208360569/7CCAF43D6693B6D90889D16493E568429E6689C3/",
-            DiffuseURL = "https://steamusercontent-a.akamaihd.net/ugc/15297536208277737/46D45D5B90EB8E64ADCBB305CBABC5C258B990EC/",
-            ColliderURL = "https://steamusercontent-a.akamaihd.net/ugc/15297536208362665/B758A7A4CBD55233A109402A89D5CCFCC7B8861A/"
-        },
-        damaged = {
-            MeshURL = "https://steamusercontent-a.akamaihd.net/ugc/15297536208449589/15DECBA99B7BDA42536D501D32DA7FBF2277DFD7/",
-            DiffuseURL = "https://steamusercontent-a.akamaihd.net/ugc/15296120695051383/E8214AA05336B24E18F7BE519DFE438FB89E991C/",
-            ColliderURL = "https://steamusercontent-a.akamaihd.net/ugc/15297536208463432/E50E8B5D0C4C4B310146EFB5BDF339009D0CA26B/"
-        }
-    }
-
-    local shader_settings = {
-        SpecularColor = {r = 0.712543666, g = 0.712543666, b = 0.712543666},
-        SpecularIntensity = 0.1,
-        SpecularSharpness = 7.0,
-        FresnelStrength = 0.4
-    }
-
-    -- Process ships in a supply bag
-    local function process_ships_in_bag(bag)
-        if not bag then return end
-        
-        local ships = bag.getObjects()
-        for _, ship_data in ipairs(ships) do
-            local name = ship_data.name
-            print("ship name: " .. name)
-            local is_damaged = string.find(name, "(Damaged)") ~= nil
-            local is_fresh = string.find(name, "(Fresh)") ~= nil
-            
-            -- Only process if exactly one of the tags is present
-            if is_damaged ~= is_fresh then
-                local mesh_type = is_damaged and "damaged" or "fresh"
-                local mesh_data = ship_meshes[mesh_type]
-                
-                local custom_mesh = {
-                    MeshURL = mesh_data.MeshURL,
-                    DiffuseURL = mesh_data.DiffuseURL,
-                    NormalURL = "",
-                    ColliderURL = mesh_data.ColliderURL,
-                    Convex = true,
-                    MaterialIndex = 0,
-                    TypeIndex = 1,
-                    CustomShader = shader_settings,
-                    CastShadows = true
-                }
-
-                local ship = bag.takeObject({
-                    position = bag.getPosition() + Vector(0, 3, 0),
-                    smooth = false
-                })
-                
-                Wait.frames(function()
-                    if ship and not ship.isDestroyed() then
-                        ship.setCustomObject(custom_mesh)
-                        ship.reload()
-                        Wait.frames(function()
-                            if ship and not ship.isDestroyed() then
-                                bag.putObject(ship)
-                            end
-                        end, 1)
-                    end
-                end, 1)
-            end
-        end
-    end
-
-    -- Find and process all ship supply bags
+function BaseGame.destroy_unused_miniature_ship_supplies()
     local player_colors = {"White", "Red", "Yellow", "Teal"}
     for _, color in ipairs(player_colors) do
-        -- Find all objects in the scene
-        for _, obj in ipairs(getAllObjects()) do
-            -- Check if object is a bag with the expected name pattern
-            if obj.type == "Bag" and obj.getName():match(color .. " Ship Supply") then
-                print("Processing " .. color .. " ship supply")
-                process_ships_in_bag(obj)
-                break -- Found the bag for this color, move to next color
+        local player = Global.get_arcs_player(color)
+        if player then
+            local ship_bag = getObjectFromGUID(player_pieces[color].components.mini_ships)
+            if ship_bag then
+                ship_bag.destroy()
+                player_pieces[color].components.mini_ships = nil
             end
         end
     end
+end
+
+function BaseGame.upgrade_ships_to_miniatures()
+    LOG.INFO("Upgrading ships to miniatures")
+
+    -- Record positions of all starting ship containers
+    local ship_positions = {}
+    for _, color in ipairs({"White", "Red", "Yellow", "Teal"}) do
+        local player = Global.get_arcs_player(color)
+        if player then
+            local ship_bag = getObjectFromGUID(player_pieces[color].components.ships)
+            if ship_bag then
+                -- Find all ships of this color in play (outside the bag)
+                local all_objects = getAllObjects()
+                for _, obj in ipairs(all_objects) do
+                    if obj.getGUID() ~= player_pieces[color].components.ships and -- Not the bag itself
+                       obj.getName() == ship_bag.getName() then -- Matches ship name
+                        table.insert(ship_positions, {
+                            color = color,
+                            position = obj.getPosition(),
+                            rotation = obj.getRotation()
+                        })
+                        obj.destroy()
+                    end
+                end
+                -- Destroy the supply bag (this also destroys its contents)
+                ship_bag.destroy()
+            end
+        end
+    end
+
+    -- Update the ship GUIDs to use miniatures
+    for _, color in ipairs({"White", "Red", "Yellow", "Teal"}) do
+        player_pieces[color].components.ships = player_pieces[color].components.mini_ships
+    end
+
+    -- Move new miniature ships to recorded positions
+    Wait.frames(function()
+        for _, ship_data in ipairs(ship_positions) do
+            local player = Global.get_arcs_player(ship_data.color)
+            if player then
+                local mini_bag = getObjectFromGUID(player_pieces[ship_data.color].components.ships)
+                if mini_bag then
+                    mini_bag.takeObject({
+                        position = ship_data.position,
+                        rotation = ship_data.rotation
+                    })
+                end
+            end
+        end
+    end, 2)
 end
 
 return BaseGame

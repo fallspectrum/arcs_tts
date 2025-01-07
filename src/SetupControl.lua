@@ -277,7 +277,8 @@ end
 
 function setup_base_game()
     local base_setup_success = BaseGame.setup(Global.getVar("with_leaders"),
-        Global.getVar("with_more_to_explore"))
+        Global.getVar("with_more_to_explore"),
+        Global.getVar("with_miniatures"))
 
     if (base_setup_success and Global.getVar("with_leaders")) then
         leader_buttons()
