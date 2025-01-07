@@ -81157,7 +81157,6 @@
       "XmlUI": ""
     },
     {
-<<<<<<< HEAD
       "GUID": "2840db",
       "Name": "CardCustom",
       "Transform": {
@@ -81172,22 +81171,6 @@
         "scaleZ": 1.15163875
       },
       "Nickname": "Court Discard Backer",
-=======
-      "GUID": "8e8851",
-      "Name": "Custom_Model",
-      "Transform": {
-        "posX": 4.09578753,
-        "posY": 1.99078965,
-        "posZ": -7.331021,
-        "rotX": 0.000335521123,
-        "rotY": 179.989182,
-        "rotZ": -0.0008361233,
-        "scaleX": 2.449999,
-        "scaleY": 2.449999,
-        "scaleZ": 2.449999
-      },
-      "Nickname": "Grey Agent",
->>>>>>> 9709666 (intermediate progress)
       "Description": "",
       "GMNotes": "",
       "AltLookAngle": {
@@ -81196,7 +81179,6 @@
         "z": 0.0
       },
       "ColorDiffuse": {
-<<<<<<< HEAD
         "r": 0.713235259,
         "g": 0.713235259,
         "b": 0.713235259
@@ -81208,33 +81190,15 @@
       "LayoutGroupSortIndex": 0,
       "Value": 0,
       "Locked": true,
-=======
-        "r": 0.5294118,
-        "g": 0.5294118,
-        "b": 0.5294118
-      },
-      "Tags": [
-        "Agent",
-        "lock"
-      ],
-      "LayoutGroupSortIndex": 0,
-      "Value": 0,
-      "Locked": false,
->>>>>>> 9709666 (intermediate progress)
       "Grid": true,
       "Snap": true,
       "IgnoreFoW": false,
       "MeasureMovement": false,
-<<<<<<< HEAD
       "DragSelectable": false,
-=======
-      "DragSelectable": true,
->>>>>>> 9709666 (intermediate progress)
       "Autoraise": true,
       "Sticky": true,
       "Tooltip": true,
       "GridProjection": false,
-<<<<<<< HEAD
       "HideWhenFaceDown": true,
       "Hands": false,
       "CardID": 48200,
@@ -81249,26 +81213,12 @@
           "UniqueBack": false,
           "Type": 1
         }
-=======
-      "HideWhenFaceDown": false,
-      "Hands": false,
-      "CustomMesh": {
-        "MeshURL": "https://dl.dropboxusercontent.com/s/lgo8smowdfmfpuh/special.obj?dl=0",
-        "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/909043855030685825/E4F8201B8E24C0DAB503B7D98A77196BDAD7D66E/",
-        "NormalURL": "",
-        "ColliderURL": "",
-        "Convex": true,
-        "MaterialIndex": 1,
-        "TypeIndex": 1,
-        "CastShadows": true
->>>>>>> 9709666 (intermediate progress)
       },
       "LuaScript": "",
       "LuaScriptState": "",
       "XmlUI": ""
     },
     {
-<<<<<<< HEAD
       "GUID": "93690a",
       "Name": "CardCustom",
       "Transform": {
@@ -81283,22 +81233,6 @@
         "scaleZ": 1.15163875
       },
       "Nickname": "Court Deck Backer",
-=======
-      "GUID": "339446",
-      "Name": "Custom_Model",
-      "Transform": {
-        "posX": 7.190018,
-        "posY": 1.978363,
-        "posZ": -6.86070728,
-        "rotX": 0.0008143795,
-        "rotY": 225.0088,
-        "rotZ": -0.00034504,
-        "scaleX": 2.749999,
-        "scaleY": 2.749999,
-        "scaleZ": 2.749999
-      },
-      "Nickname": "Grey Flagship",
->>>>>>> 9709666 (intermediate progress)
       "Description": "",
       "GMNotes": "",
       "AltLookAngle": {
@@ -81307,7 +81241,6 @@
         "z": 0.0
       },
       "ColorDiffuse": {
-<<<<<<< HEAD
         "r": 0.713235259,
         "g": 0.713235259,
         "b": 0.713235259
@@ -81319,32 +81252,15 @@
       "LayoutGroupSortIndex": 0,
       "Value": 0,
       "Locked": true,
-=======
-        "r": 0.5294118,
-        "g": 0.5294118,
-        "b": 0.5294118
-      },
-      "Tags": [
-        "Campaign Only"
-      ],
-      "LayoutGroupSortIndex": 0,
-      "Value": 0,
-      "Locked": false,
->>>>>>> 9709666 (intermediate progress)
       "Grid": true,
       "Snap": true,
       "IgnoreFoW": false,
       "MeasureMovement": false,
-<<<<<<< HEAD
       "DragSelectable": false,
-=======
-      "DragSelectable": true,
->>>>>>> 9709666 (intermediate progress)
       "Autoraise": true,
       "Sticky": true,
       "Tooltip": true,
       "GridProjection": false,
-<<<<<<< HEAD
       "HideWhenFaceDown": true,
       "Hands": false,
       "CardID": 48600,
@@ -81359,26 +81275,12 @@
           "UniqueBack": false,
           "Type": 1
         }
-=======
-      "HideWhenFaceDown": false,
-      "Hands": false,
-      "CustomMesh": {
-        "MeshURL": "https://dl.dropboxusercontent.com/s/3ga602is61nd1li/flagship.obj?dl=0",
-        "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/909043855030685825/E4F8201B8E24C0DAB503B7D98A77196BDAD7D66E/",
-        "NormalURL": "",
-        "ColliderURL": "",
-        "Convex": true,
-        "MaterialIndex": 1,
-        "TypeIndex": 1,
-        "CastShadows": true
->>>>>>> 9709666 (intermediate progress)
       },
       "LuaScript": "",
       "LuaScriptState": "",
       "XmlUI": ""
     },
     {
-<<<<<<< HEAD
       "GUID": "65a823",
       "Name": "CardCustom",
       "Transform": {
@@ -81393,7 +81295,171 @@
         "scaleZ": 1.15
       },
       "Nickname": "Imperial Council Backer",
-=======
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.713235259,
+        "g": 0.713235259,
+        "b": 0.713235259
+      },
+      "Tags": [
+        "lock",
+        "Noninteractable"
+      ],
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": true,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": false,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": true,
+      "Hands": false,
+      "CardID": 48700,
+      "SidewaysCard": false,
+      "CustomDeck": {
+        "487": {
+          "FaceURL": "https://steamusercontent-a.akamaihd.net/ugc/15297536216531577/1CB9B9C59240EEF6120BDFB2F8CCF3FF1C663D97/",
+          "BackURL": "https://steamusercontent-a.akamaihd.net/ugc/15297536216531577/1CB9B9C59240EEF6120BDFB2F8CCF3FF1C663D97/",
+          "NumWidth": 1,
+          "NumHeight": 1,
+          "BackIsHidden": true,
+          "UniqueBack": false,
+          "Type": 1
+        }
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    },
+    {
+      "GUID": "8e8851",
+      "Name": "Custom_Model",
+      "Transform": {
+        "posX": 4.09578753,
+        "posY": 1.99078965,
+        "posZ": -7.331021,
+        "rotX": 0.000335521123,
+        "rotY": 179.989182,
+        "rotZ": -0.0008361233,
+        "scaleX": 2.449999,
+        "scaleY": 2.449999,
+        "scaleZ": 2.449999
+      },
+      "Nickname": "Grey Agent",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.5294118,
+        "g": 0.5294118,
+        "b": 0.5294118
+      },
+      "Tags": [
+        "Agent",
+        "lock"
+      ],
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomMesh": {
+        "MeshURL": "https://dl.dropboxusercontent.com/s/lgo8smowdfmfpuh/special.obj?dl=0",
+        "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/909043855030685825/E4F8201B8E24C0DAB503B7D98A77196BDAD7D66E/",
+        "NormalURL": "",
+        "ColliderURL": "",
+        "Convex": true,
+        "MaterialIndex": 1,
+        "TypeIndex": 1,
+        "CastShadows": true
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    },
+    {
+      "GUID": "339446",
+      "Name": "Custom_Model",
+      "Transform": {
+        "posX": 7.190018,
+        "posY": 1.978363,
+        "posZ": -6.86070728,
+        "rotX": 0.0008143795,
+        "rotY": 225.0088,
+        "rotZ": -0.00034504,
+        "scaleX": 2.749999,
+        "scaleY": 2.749999,
+        "scaleZ": 2.749999
+      },
+      "Nickname": "Grey Flagship",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.5294118,
+        "g": 0.5294118,
+        "b": 0.5294118
+      },
+      "Tags": [
+        "Campaign Only"
+      ],
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomMesh": {
+        "MeshURL": "https://dl.dropboxusercontent.com/s/3ga602is61nd1li/flagship.obj?dl=0",
+        "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/909043855030685825/E4F8201B8E24C0DAB503B7D98A77196BDAD7D66E/",
+        "NormalURL": "",
+        "ColliderURL": "",
+        "Convex": true,
+        "MaterialIndex": 1,
+        "TypeIndex": 1,
+        "CastShadows": true
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    },
+    {
       "GUID": "5983db",
       "Name": "Custom_Model",
       "Transform": {
@@ -81529,7 +81595,6 @@
         "scaleZ": 2.249999
       },
       "Nickname": "Grey Ship (Damaged)",
->>>>>>> 9709666 (intermediate progress)
       "Description": "",
       "GMNotes": "",
       "AltLookAngle": {
@@ -81538,19 +81603,6 @@
         "z": 0.0
       },
       "ColorDiffuse": {
-<<<<<<< HEAD
-        "r": 0.713235259,
-        "g": 0.713235259,
-        "b": 0.713235259
-      },
-      "Tags": [
-        "lock",
-        "Noninteractable"
-      ],
-      "LayoutGroupSortIndex": 0,
-      "Value": 0,
-      "Locked": true,
-=======
         "r": 0.5294118,
         "g": 0.5294118,
         "b": 0.5294118
@@ -81561,40 +81613,15 @@
       "LayoutGroupSortIndex": 0,
       "Value": 0,
       "Locked": false,
->>>>>>> 9709666 (intermediate progress)
       "Grid": true,
       "Snap": true,
       "IgnoreFoW": false,
       "MeasureMovement": false,
-<<<<<<< HEAD
-      "DragSelectable": false,
-=======
       "DragSelectable": true,
->>>>>>> 9709666 (intermediate progress)
       "Autoraise": true,
       "Sticky": true,
       "Tooltip": true,
       "GridProjection": false,
-<<<<<<< HEAD
-      "HideWhenFaceDown": true,
-      "Hands": false,
-      "CardID": 48700,
-      "SidewaysCard": false,
-      "CustomDeck": {
-        "487": {
-          "FaceURL": "https://steamusercontent-a.akamaihd.net/ugc/15297536216531577/1CB9B9C59240EEF6120BDFB2F8CCF3FF1C663D97/",
-          "BackURL": "https://steamusercontent-a.akamaihd.net/ugc/15297536216531577/1CB9B9C59240EEF6120BDFB2F8CCF3FF1C663D97/",
-          "NumWidth": 1,
-          "NumHeight": 1,
-          "BackIsHidden": true,
-          "UniqueBack": false,
-          "Type": 1
-        }
-      },
-      "LuaScript": "",
-      "LuaScriptState": "",
-      "XmlUI": ""
-=======
       "HideWhenFaceDown": false,
       "Hands": false,
       "CustomMesh": {
@@ -81790,9 +81817,6 @@
           "XmlUI": ""
         }
       }
-<<<<<<< HEAD
->>>>>>> 9709666 (intermediate progress)
-=======
     },
     {
       "GUID": "fb8e2b",
@@ -82071,7 +82095,6 @@
           "XmlUI": ""
         }
       }
->>>>>>> dba9c73 (progress)
     }
   ]
 }
