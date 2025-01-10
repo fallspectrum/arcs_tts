@@ -602,6 +602,8 @@ function BaseGame.setupPlayers(ordered_players, setup_card)
         LOG.DEBUG("get player ship and starport bags and city objects")
         local ship_bag = getObjectFromGUID(
             player_pieces_guids[player_color]["ships"])
+        print("printing ship bag")
+        print("Ship bag GUID: " .. tostring(player_pieces_guids[player_color]["ships"]))
         local starport_bag = getObjectFromGUID(
             player_pieces_guids[player_color]["starports"])
         local city1 = getObjectFromGUID(
@@ -760,7 +762,8 @@ end
 function BaseGame.destroy_unused_miniature_ship_supplies()
     local player_colors = {"White", "Red", "Yellow", "Teal"}
     for _, color in ipairs(player_colors) do
-        local ship_bag = getObjectFromGUID(player_pieces_GUIDs[color].mini_ships)
+        local player_pieces_guids = Global.getVar("player_pieces_GUIDs")
+        local ship_bag = getObjectFromGUID(player_pieces_guids[color]["mini_ships"])
         if ship_bag then
             ship_bag.destroy()
         end
@@ -769,8 +772,9 @@ end
 
 function BaseGame.upgrade_ships_to_miniatures()
     print("Upgrading ships to miniatures")
+    local player_pieces_guids = Global.getVar("player_pieces_GUIDs")
     for _, color in ipairs({"White", "Red", "Yellow", "Teal"}) do
-        local ship_bag = getObjectFromGUID(player_pieces_GUIDs[color].ships)
+        local ship_bag = getObjectFromGUID(player_pieces_guids[color]["ships"])
         if ship_bag then
             print("Ship bag found for " .. color)
             -- Store the original position before destroying
@@ -778,12 +782,13 @@ function BaseGame.upgrade_ships_to_miniatures()
             ship_bag.destroy()
             
             -- Update the GUID reference to use miniature ships
-            player_pieces_GUIDs[color].ships = player_pieces_GUIDs[color].mini_ships
+            -- should we update the local player_pieces_guids? and then later update the global player_pieces_guids?
+            player_pieces_guids[color]["ships"] = player_pieces_guids[color]["mini_ships"]
 
-            print("New ship bag GUID: " .. tostring(player_pieces_GUIDs[color].ships))
+            print("New ship bag GUID: " .. tostring(player_pieces_guids[color]["ships"]))
             
             -- Get the mini ship bag and move it to the original position with adjusted height
-            local mini_ship_bag = getObjectFromGUID(player_pieces_GUIDs[color].mini_ships)
+            local mini_ship_bag = getObjectFromGUID(player_pieces_guids[color]["mini_ships"])
             if mini_ship_bag then
                 mini_ship_bag.setPosition({
                     x = original_pos.x,
@@ -793,6 +798,7 @@ function BaseGame.upgrade_ships_to_miniatures()
             end
         end
     end
+    Global.setVar("player_pieces_GUIDs", player_pieces_guids)
 end
 
 return BaseGame
