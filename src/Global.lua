@@ -1280,9 +1280,6 @@ end
 --     players = active_players
 -- }
 function set_game_in_progress(params)
-    if (with_miniatures) then
-        BaseGame.upgrade_ships_to_miniatures()
-    end
     Counters.setup()
     local reach_board = getObjectFromGUID(reach_board_GUID)
     reach_board.setDescription("in progress")

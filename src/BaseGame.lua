@@ -241,7 +241,7 @@ function BaseGame.setup(with_leaders, with_ll_expansion, with_miniatures)
     if with_miniatures then
         BaseGame.upgrade_ships_to_miniatures()
     else
-        BaseGame.destroy_miniature_ship_bags()
+        BaseGame.destroy_unused_miniature_ship_supplies()
     end
 
     chosen_setup_card = BaseGame.chooseSetupCard(#active_players)
@@ -760,66 +760,39 @@ end
 function BaseGame.destroy_unused_miniature_ship_supplies()
     local player_colors = {"White", "Red", "Yellow", "Teal"}
     for _, color in ipairs(player_colors) do
-        local player = Global.get_arcs_player(color)
-        if player then
-            local ship_bag = getObjectFromGUID(player_pieces[color].components.mini_ships)
-            if ship_bag then
-                ship_bag.destroy()
-                player_pieces[color].components.mini_ships = nil
-            end
+        local ship_bag = getObjectFromGUID(player_pieces_GUIDs[color].mini_ships)
+        if ship_bag then
+            ship_bag.destroy()
         end
     end
 end
 
 function BaseGame.upgrade_ships_to_miniatures()
-    LOG.INFO("Upgrading ships to miniatures")
-
-    -- Record positions of all starting ship containers
-    local ship_positions = {}
+    print("Upgrading ships to miniatures")
     for _, color in ipairs({"White", "Red", "Yellow", "Teal"}) do
-        local player = Global.get_arcs_player(color)
-        if player then
-            local ship_bag = getObjectFromGUID(player_pieces[color].components.ships)
-            if ship_bag then
-                -- Find all ships of this color in play (outside the bag)
-                local all_objects = getAllObjects()
-                for _, obj in ipairs(all_objects) do
-                    if obj.getGUID() ~= player_pieces[color].components.ships and -- Not the bag itself
-                       obj.getName() == ship_bag.getName() then -- Matches ship name
-                        table.insert(ship_positions, {
-                            color = color,
-                            position = obj.getPosition(),
-                            rotation = obj.getRotation()
-                        })
-                        obj.destroy()
-                    end
-                end
-                -- Destroy the supply bag (this also destroys its contents)
-                ship_bag.destroy()
+        local ship_bag = getObjectFromGUID(player_pieces_GUIDs[color].ships)
+        if ship_bag then
+            print("Ship bag found for " .. color)
+            -- Store the original position before destroying
+            local original_pos = ship_bag.getPosition()
+            ship_bag.destroy()
+            
+            -- Update the GUID reference to use miniature ships
+            player_pieces_GUIDs[color].ships = player_pieces_GUIDs[color].mini_ships
+
+            print("New ship bag GUID: " .. tostring(player_pieces_GUIDs[color].ships))
+            
+            -- Get the mini ship bag and move it to the original position with adjusted height
+            local mini_ship_bag = getObjectFromGUID(player_pieces_GUIDs[color].mini_ships)
+            if mini_ship_bag then
+                mini_ship_bag.setPosition({
+                    x = original_pos.x,
+                    y = original_pos.y,
+                    z = original_pos.z
+                })
             end
         end
     end
-
-    -- Update the ship GUIDs to use miniatures
-    for _, color in ipairs({"White", "Red", "Yellow", "Teal"}) do
-        player_pieces[color].components.ships = player_pieces[color].components.mini_ships
-    end
-
-    -- Move new miniature ships to recorded positions
-    Wait.frames(function()
-        for _, ship_data in ipairs(ship_positions) do
-            local player = Global.get_arcs_player(ship_data.color)
-            if player then
-                local mini_bag = getObjectFromGUID(player_pieces[ship_data.color].components.ships)
-                if mini_bag then
-                    mini_bag.takeObject({
-                        position = ship_data.position,
-                        rotation = ship_data.rotation
-                    })
-                end
-            end
-        end
-    end, 2)
 end
 
 return BaseGame
