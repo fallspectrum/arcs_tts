@@ -1346,7 +1346,7 @@ function onLoad()
             end
         end
 
-        Counters.setup()
+        -- Counters.setup()
     elseif debug then
         Campaign.components_visibility(true)
         BaseGame.components_visibility({

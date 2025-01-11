@@ -47,8 +47,6 @@ local BaseGame = {
 }
 
 local ArcsPlayer = require("src/ArcsPlayer")
-local Counters = require("src/Counters")
-local supplies = require("src/Supplies")
 local ActionCards = require("src/ActionCards")
 local resource = require("src/Resource")
 local merchant = require("src/Merchant")
@@ -215,6 +213,12 @@ function BaseGame.setup(with_leaders, with_ll_expansion, with_miniatures)
         return false
     end
 
+    if with_miniatures then
+        BaseGame.upgrade_ships_to_miniatures()
+    else
+        BaseGame.destroy_unused_miniature_ship_supplies()
+    end
+
     local active_player_colors = {}
     for _, p in pairs(active_players) do
         ArcsPlayer.setup(p, false)
@@ -228,6 +232,17 @@ function BaseGame.setup(with_leaders, with_ll_expansion, with_miniatures)
         with_faceup_discard = ActionCards.is_face_up_discard_active(),
         players = active_player_colors
     }
+    -- print guids for player pieces
+    print("Player pieces GUIDs:")
+    for color, guids in pairs(Global.getVar("player_pieces_GUIDs")) do
+        print("Color: " .. color)
+        for key, guid in pairs(guids) do
+            -- print the ships guid
+            if key == "ships" then
+                print("Ships GUID: " .. guid)
+            end
+        end
+    end
     Global.call("set_game_in_progress", p)
 
     -- B
@@ -237,12 +252,6 @@ function BaseGame.setup(with_leaders, with_ll_expansion, with_miniatures)
     -- D
     ActionCards.setup_deck(#active_players)
     BaseGame.setupBaseCourt(#active_players)
-
-    if with_miniatures then
-        BaseGame.upgrade_ships_to_miniatures()
-    else
-        BaseGame.destroy_unused_miniature_ship_supplies()
-    end
 
     chosen_setup_card = BaseGame.chooseSetupCard(#active_players)
     BaseGame.setupOutOfPlayClusters(chosen_setup_card)
@@ -602,8 +611,6 @@ function BaseGame.setupPlayers(ordered_players, setup_card)
         LOG.DEBUG("get player ship and starport bags and city objects")
         local ship_bag = getObjectFromGUID(
             player_pieces_guids[player_color]["ships"])
-        print("printing ship bag")
-        print("Ship bag GUID: " .. tostring(player_pieces_guids[player_color]["ships"]))
         local starport_bag = getObjectFromGUID(
             player_pieces_guids[player_color]["starports"])
         local city1 = getObjectFromGUID(
@@ -771,23 +778,13 @@ function BaseGame.destroy_unused_miniature_ship_supplies()
 end
 
 function BaseGame.upgrade_ships_to_miniatures()
-    print("Upgrading ships to miniatures")
     local player_pieces_guids = Global.getVar("player_pieces_GUIDs")
     for _, color in ipairs({"White", "Red", "Yellow", "Teal"}) do
         local ship_bag = getObjectFromGUID(player_pieces_guids[color]["ships"])
         if ship_bag then
-            print("Ship bag found for " .. color)
-            -- Store the original position before destroying
             local original_pos = ship_bag.getPosition()
             ship_bag.destroy()
-            
-            -- Update the GUID reference to use miniature ships
-            -- should we update the local player_pieces_guids? and then later update the global player_pieces_guids?
             player_pieces_guids[color]["ships"] = player_pieces_guids[color]["mini_ships"]
-
-            print("New ship bag GUID: " .. tostring(player_pieces_guids[color]["ships"]))
-            
-            -- Get the mini ship bag and move it to the original position with adjusted height
             local mini_ship_bag = getObjectFromGUID(player_pieces_guids[color]["mini_ships"])
             if mini_ship_bag then
                 mini_ship_bag.setPosition({
