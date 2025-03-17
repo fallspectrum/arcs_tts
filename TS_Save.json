@@ -25581,7 +25581,8 @@
           "Tags": [
             "Campaign Only",
             "Guild",
-            "Court"
+            "Court",
+            "Union"
           ],
           "LayoutGroupSortIndex": 0,
           "Value": 0,
@@ -25770,7 +25771,8 @@
           "Tags": [
             "Campaign Only",
             "Guild",
-            "Court"
+            "Court",
+            "Union"
           ],
           "LayoutGroupSortIndex": 0,
           "Value": 0,
@@ -38415,6 +38417,7 @@
                 "Campaign Only",
                 "Guild",
                 "Court",
+                "Union",
                 "F6"
               ],
               "LayoutGroupSortIndex": 0,
@@ -38479,6 +38482,7 @@
                 "Campaign Only",
                 "Guild",
                 "Court",
+                "Union",
                 "F6"
               ],
               "LayoutGroupSortIndex": 0,
@@ -39116,6 +39120,7 @@
                 "Campaign Only",
                 "Guild",
                 "Court",
+                "Union",
                 "F6"
               ],
               "LayoutGroupSortIndex": 0,
@@ -39180,6 +39185,7 @@
                 "Campaign Only",
                 "Guild",
                 "Court",
+                "Union",
                 "F6"
               ],
               "LayoutGroupSortIndex": 0,
@@ -44388,6 +44394,7 @@
                 "Campaign Only",
                 "Guild",
                 "Court",
+                "Union",
                 "F2"
               ],
               "LayoutGroupSortIndex": 0,
@@ -44452,6 +44459,7 @@
                 "Campaign Only",
                 "Guild",
                 "Court",
+                "Union",
                 "F2"
               ],
               "LayoutGroupSortIndex": 0,
@@ -44516,6 +44524,7 @@
                 "Campaign Only",
                 "Guild",
                 "Court",
+                "Union",
                 "F2"
               ],
               "LayoutGroupSortIndex": 0,
@@ -44580,6 +44589,7 @@
                 "Campaign Only",
                 "Guild",
                 "Court",
+                "Union",
                 "F2"
               ],
               "LayoutGroupSortIndex": 0,
@@ -75727,7 +75737,8 @@
           },
           "Tags": [
             "Guild",
-            "Court"
+            "Court",
+            "Union"
           ],
           "LayoutGroupSortIndex": 0,
           "Value": 0,
@@ -75913,7 +75924,8 @@
           },
           "Tags": [
             "Guild",
-            "Court"
+            "Court",
+            "Union"
           ],
           "LayoutGroupSortIndex": 0,
           "Value": 0,
@@ -76223,7 +76235,8 @@
           },
           "Tags": [
             "Guild",
-            "Court"
+            "Court",
+            "Union"
           ],
           "LayoutGroupSortIndex": 0,
           "Value": 0,
@@ -76967,7 +76980,8 @@
           },
           "Tags": [
             "Guild",
-            "Court"
+            "Court",
+            "Union"
           ],
           "LayoutGroupSortIndex": 0,
           "Value": 0,
